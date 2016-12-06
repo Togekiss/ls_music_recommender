@@ -6,14 +6,123 @@
 
 		<title>LS Music Recommender</title>
 		<meta name="description" content="LaSalle Music Recommender">
+		<meta name="author" content="Martina, Rogelio i Vector">
 
 		<link href="https://fonts.googleapis.com/css?family=Oswald:300,400" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="main.css">
 	</head>
 	<body>
-		<h1>Hola món!</h1>
-		<h2>Adieu hehe</h2>
+
+		<header class="clearfix">
+			<nav>
+				<ul>
+					<li><a title="Logo" href=""></a></li>
+					<li>
+						<form method="post">
+							<label for="search"></label>
+							<input id="search" name="query" placeholder="Buscar">
+							<button id="action-search" type="submit">Buscar</button>
+						</form>
+					</li>
+					<li><a title="List" href=""></a></li>
+				</ul>
+			</nav>
+		</header>
+
+		<div id="main" class="clearfix">
+			<section id="results">
+				<h2>Resultados</h2>
+
+				<nav class="">
+					<ul>
+						<li class=""><button class="previous arrowp"><span class=""></button></li>
+						<li>
+							<div id="results-images">
+								<ul>
+									<li>
+										<figure>
+											<img src="https://i.ytimg.com/vi/cfOa1a8hYP8/hqdefault.jpg" alt="Radiohead - Lotus Flower">
+											<span class=""></span>
+											<figcaption>
+												<h3>Radiohead</h3>
+												<h4>Lotus Flower</h4>
+											</figcaption>
+										</figure>
+									</li>
+									<li>
+										<figure>
+											<img src="https://i.ytimg.com/vi/cfOa1a8hYP8/hqdefault.jpg" alt="Radiohead - Lotus Flower">
+											<span class=""></span>
+											<figcaption>
+												<h3>Radiohead</h3>
+												<h4>Lotus Flower</h4>
+											</figcaption>
+										</figure>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<li class=""><button class="previous arrown"><span class=""></span></button></li>
+					</ul>
+				</nav>
+
+			</section>
+
+			<section id="top-tracks">
+				<h2>Top Tracks</h2>
+
+				<nav class="">
+					<ul>
+						<li class=""><button class="previous"><span class=""></span></button></li>
+						<li>
+							<div id="top-tracks-images">
+								<ul>
+									<li>
+										<figure>
+											<img src="https://i.ytimg.com/vi/cfOa1a8hYP8/hqdefault.jpg" alt="Radiohead - Lotus Flower">
+											<span class=""></span>
+											<figcaption>
+												<h3>Radiohead</h3>
+												<h4>Lotus Flower</h4>
+											</figcaption>
+										</figure>
+									</li>
+									<li>
+										<figure>
+											<img src="https://i.ytimg.com/vi/cfOa1a8hYP8/hqdefault.jpg" alt="Radiohead - Lotus Flower">
+											<span class=""></span>
+											<figcaption>
+												<h3>Radiohead</h3>
+												<h4>Lotus Flower</h4>
+											</figcaption>
+										</figure>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<li class=""><button class="next"><span class=""></span></button></li>
+					</ul>
+				</nav>
+
+			</section>
+		</div>
+
+		<footer>
+		</footer>
+
 
 		<script type="text/javascript" src="javascript.js"></script>
+		<script type="text/javascript" src="spotify_api_data.js"></script>
+		<script src="https://connect.soundcloud.com/sdk/sdk-3.1.2.js"></script>
+		<script>
+		SC.initialize({
+		  client_id: 'YOUR_CLIENT_ID'
+		});
+
+		// stream track id 293
+		SC.stream('/tracks/293').then(function(player){
+		  player.play();
+		});
+		</script>
 	</body>
 </html>

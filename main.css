@@ -31,3 +31,45 @@ h1 {
      color: crimson;
      font-size: 50px;
 }
+
+img {
+  width : 370px;
+  height: 200px;
+}
+
+.previous {
+    z-index: 1000;
+    border-radius: 32px;
+    background-color: rgba(180,180,180,0.25);
+    border-style: none;
+    color: #848484;
+    font-size: 40px;
+    line-height: 60px;
+    opacity: 0.8;
+    text-decoration: none;
+    width: 64px;
+    height: 64px;
+    left: 18px;
+    display: block;
+    position: relative;
+}
+
+.arrowp:before {
+  color: #666;
+  text-decoration: none;
+  font-size: 72px;
+  font-weight: bold;
+  content: "\0354";
+  position:absolute;
+  margin-top: -60px;
+}
+
+.arrown:before {
+  color: #666;
+  text-decoration: none;
+  font-size: 72px;
+  font-weight: bold;
+  content: "\0350";
+  position:absolute;
+  margin-top: -5px;
+}
