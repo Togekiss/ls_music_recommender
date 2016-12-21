@@ -202,30 +202,23 @@ p {
    margin-left: 5px;
 }
 
-.play:after {
+#play .material-icons {
   color: white;
+  font-size: 32px;
   text-decoration: none;
-  font-size: 20px;
-  font-weight: bold;
-  content: "\25B6";
+  font-weight: normal;
   position: absolute;
-  top: 15px;
-  left: 95px;
-  border: 1px solid white;
-  border-radius: 50px;
-  width: 30px;
-  height: 25px;
+  top: 10px;
+  left: 93px;
   padding-left: 2px;
   padding-top: 5px;
   text-align: center;
 }
 
-.step-backward:after {
+#skip_previous .material-icons {
   color: white;
   text-decoration: none;
-  font-size: 20px;
   font-weight: normal;
-  content: "\23EE";
   position: absolute;
   top: 15px;
   left: 50px;
@@ -236,17 +229,28 @@ p {
   text-align: center;
 }
 
-.step-forward:after {
+#skip_next .material-icons {
   color: white;
   text-decoration: none;
-  font-size: 20px;
   font-weight: normal;
-  content: "\23ED";
   position: absolute;
   top: 15px;
   left: 137px;
   width: 30px;
   height: 25px;
+  padding-left: 2px;
+  padding-top: 5px;
+  text-align: center;
+}
+
+#pause .material-icons {
+  color: white;
+  font-size: 32px;
+  text-decoration: none;
+  font-weight: normal;
+  position: absolute;
+  top: 10px;
+  left: 93px;
   padding-left: 2px;
   padding-top: 5px;
   text-align: center;
