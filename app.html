@@ -7,9 +7,10 @@
 	<title>LS Music Recommender</title>
 	<meta name="description" content="LaSalle Music Recommender">
 	<meta name="author" content="Martina, Rogelio i Vector">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
-	<link href="https://fonts.googleapis.com/css?family=Oswald:300,400" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="main.css">
+	<link rel="stylesheet" type="text/css" href="proxima-nova.css">
 </head>
 <body>
 
@@ -29,7 +30,7 @@
 	</nav>
 </header>
 
-<div id="main" class="clearfix">
+<div id="container" class="clearfix">
 	<section id="results">
 		<h2>Resultados</h2>
 
@@ -107,13 +108,35 @@
 	</section>
 </div>
 
-<footer>
+<footer id="footer">
+		<div class="player">
+	   <ul>
+	      <li class="info">
+					<img src="http://i1285.photobucket.com/albums/a583/TheGreatOzz1/Hosted-Images/Noisy-Freeks-Image_zps4kilrxml.png"/>
+					<section class="title">
+						<h4>Premiere</h4>
+						<h2>I Need You Back</h2>
+					</section>
+				</li>
+	      <li class="controller">
+            <div id="sdiv">
+							<p id="timer-actual">0:00</p>
+							<div id="slider"></div>
+            	<p id="timer-total">3:47</p>
+						</div>
+            <div id="buttons">
+							 <span class="expend"><span class="step-backward"></span></span>
+               <a id="start"><span class="play"></span></a>
+               <span class="pause"></span>
+            	 <span class="expend"><span class="step-forward"></span></span>
+            </div>
+	      </li>
+	   </ul>
+	</div>
 </footer>
 
 <script type="text/javascript" src="spotify_api_data.js"></script>
 <script type="text/javascript" src="javascript.js"></script>
 
-<iframe src="https://embed.spotify.com/?uri=spotify:user:spotify:playlist:3rgsDhGHZxZ9sB9DQWQfuf"
-		width="300" height="80" frameborder="0" allowtransparency="true"></iframe>
 </body>
 </html>

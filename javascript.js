@@ -37,7 +37,7 @@
 		addListener : function addListener (target, event, callback, capture) {
 			target.addEventListener(event, callback, capture);
 		},
-		eventSearch: function eventPlay(event){
+		eventSearch: function eventPlay(event) {
 			event.preventDefault();
 
 			var query = document.getElementById("search").value
@@ -48,6 +48,12 @@
 			}
 
 			MusicRecommender.search(query);
+		},
+		songPlay: function songPlay(event) {
+			event.preventDefault();
+
+			audioObject = new Audio("https://p.scdn.co/mp3-preview/b1001137270cabb919e1686edafc4854d579ddb3?cid=null");
+      audioObject.play();
 		}
 	}
 
@@ -57,6 +63,8 @@
 			var button = document.getElementById('action-search');
 			Listener.addListener (button, 'click', Listener.eventSearch, false);
 
+			var start = document.getElementById('start');
+			Listener.addListener (start, 'click', Listener.songPlay, false);
 		}
 	}
 
