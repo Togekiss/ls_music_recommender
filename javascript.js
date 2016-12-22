@@ -42,21 +42,32 @@
 		eventSearch: function eventPlay(event) {
 			event.preventDefault();
 
-			var query = document.getElementById("search").value
+			var query = document.getElementById("search").value;
 
 			if(!query){
 				alert("Your search is short.");
-				return false
+				return false;
 			}
 
 			var array = MusicRecommender.search(query);
 			Application.replaceResults(array);
 		},
+
+		chargeSong: function chargeSong(event) {
+			event.preventDefault();
+			
+			var li = document.getElementsByClassName('info')[0];
+			var figure = event.target.parentNode;
+			li.childNodes[1].src = figure.childNodes[1].src;
+			li.childNodes[3].childNodes[1].textContent = figure.childNodes[5].childNodes[1].textContent;
+			li.childNodes[3].childNodes[3].textContent = figure.childNodes[5].childNodes[3].textContent;
+		},
+
 		songPlay: function songPlay(event) {
 			event.preventDefault();
 
 			if (firstPlay == true) {
-				audioObject = new Audio("https://p.scdn.co/mp3-preview/b1001137270cabb919e1686edafc4854d579ddb3?cid=null");
+				audioObject = new Audio("https://p.scdn.co/mp3-preview/ae0b1ea3bea53de0071e967112430d08fbc31c91?cid=null");
 				firstPlay = false;
 			}
       audioObject.play();
@@ -110,17 +121,10 @@
 			figure2.childNodes[5].childNodes[1].textContent = array.tracks.items[1].artists[0].name;
 			figure2.childNodes[5].childNodes[3].textContent = array.tracks.items[1].name;
 
-			Listener.addListener(figure1.childNodes[3], "click", this.chargeSong(figure1), false);
-			Listener.addListener(figure2.childNodes[3], "click", this.chargeSong(figure2), false);
+			Listener.addListener(figure1.childNodes[1], "click", Listener.chargeSong, false);
+			Listener.addListener(figure2.childNodes[1], "click", Listener.chargeSong, false);
 		},
 
-		chargeSong: function chargeSong (figure) {
-			var li = document.getElementsByClassName('info')[0];
-		//	li.childNodes[1].src = figure.childNodes[1].src;
-			//li.childNodes[3].childNodes[1].textContent = figure.childNodes[5].childNodes[1].textContent;
-			//li.childNodes[3].childNodes[3].textContent = figure.childNodes[5].childNodes[3].textContent;
-			console.log(li);
-		},
 		start: function start(){
 
 			var button = document.getElementById('action-search');
