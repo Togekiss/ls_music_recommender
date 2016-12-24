@@ -1,7 +1,9 @@
 
 (function(){
-	var audioObject;
+	var audioObject = new Audio();
 	var firstPlay = true;
+	var itemIndex = [0, 1];
+	var items;
 
 	var MusicRecommender = {
 		search : function search (query) {
@@ -36,9 +38,13 @@
 	}
 
 	var Listener = {
+		slider,
+		playing : false,
+
 		addListener : function addListener (target, event, callback, capture) {
 			target.addEventListener(event, callback, capture);
 		},
+
 		eventSearch: function eventPlay(event) {
 			event.preventDefault();
 
@@ -53,24 +59,44 @@
 			Application.replaceResults(array);
 		},
 
-		chargeSong: function chargeSong(event) {
+		chargeFooter: function chargeFooter(event) {
 			event.preventDefault();
-			
+
+			playing = false;
 			var li = document.getElementsByClassName('info')[0];
 			var figure = event.target.parentNode;
 			li.childNodes[1].src = figure.childNodes[1].src;
 			li.childNodes[3].childNodes[1].textContent = figure.childNodes[5].childNodes[1].textContent;
 			li.childNodes[3].childNodes[3].textContent = figure.childNodes[5].childNodes[3].textContent;
+
+			Listener.songPause(event);
+			if (figure.id == "results-img1") audioObject = new Audio(items.tracks.items[itemIndex[0]].preview_url);
+			else  audioObject = new Audio(items.tracks.items[itemIndex[1]].preview_url);
+		},
+
+		updateSlider: function updateSlider() {
+
+			var timer = document.getElementById('timer-actual');
+			var time = parseInt(timer.textContent.substring(2,4));
+
+			time++;
+
+			if (time < 10) timer.textContent = "0:0" + time.toString();
+			else timer.textContent = "0:" + time.toString();
+
+			if (time == 30) {
+				clearInterval(slider);
+				playing = false;
+				Listener.songFinished();
+			}
 		},
 
 		songPlay: function songPlay(event) {
 			event.preventDefault();
 
-			if (firstPlay == true) {
-				audioObject = new Audio("https://p.scdn.co/mp3-preview/ae0b1ea3bea53de0071e967112430d08fbc31c91?cid=null");
-				firstPlay = false;
-			}
-      audioObject.play();
+			playing = true;
+		  audioObject.play();
+			slider = setInterval(Listener.updateSlider, 1000);
 
 			var start = document.getElementById('play');
 			start.setAttribute("id", "pause");
@@ -86,29 +112,60 @@
 			start.removeEventListener("click", Listener.songPlay);
 			Listener.addListener (start, 'click', Listener.songPause, false);
 		},
+
+		songFinished : function songFinished () {
+			clearInterval(slider);
+
+			document.getElementById('timer-actual').textContent = "0:00";
+			var start = document.getElementById('pause');
+			audioObject.load();
+
+    	if (start != null) {
+				if (!audioObject.paused) audioObject.pause();
+
+				start.setAttribute("id", "play");
+				start.removeChild(start.childNodes[0]);
+
+				var i = document.createElement("i");
+				var text = document.createTextNode("play_circle_outline");
+				i.appendChild(text);
+				i.setAttribute("class", "material-icons");
+
+				start.appendChild(i);
+
+				start.removeEventListener("click", Listener.songPause);
+				Listener.addListener (start, 'click', Listener.songPlay, false);
+			}
+		},
+
 		songPause: function songPause(event) {
+			if (!playing) document.getElementById('timer-actual').textContent = "0:00";
+			clearInterval(slider);
 			event.preventDefault();
 
-      audioObject.pause();
-
 			var start = document.getElementById('pause');
-			start.setAttribute("id", "play");
-			start.removeChild(start.childNodes[0]);
+    	if (start != null) {
+				if (!audioObject.paused) audioObject.pause();
 
-			var i = document.createElement("i");
-			var text = document.createTextNode("play_circle_outline");
-			i.appendChild(text);
-			i.setAttribute("class", "material-icons");
+				start.setAttribute("id", "play");
+				start.removeChild(start.childNodes[0]);
 
-			start.appendChild(i);
+				var i = document.createElement("i");
+				var text = document.createTextNode("play_circle_outline");
+				i.appendChild(text);
+				i.setAttribute("class", "material-icons");
 
-			start.removeEventListener("click", Listener.songPause);
-			Listener.addListener (start, 'click', Listener.songPlay, false);
+				start.appendChild(i);
+
+				start.removeEventListener("click", Listener.songPause);
+				Listener.addListener (start, 'click', Listener.songPlay, false);
+			}
 		}
 	}
 
 	var Application = {
 		replaceResults: function replaceResults(array) {
+			items = array;
 			var figure1 = document.getElementById('results-img1');
 			var figure2 = document.getElementById('results-img2');
 
@@ -121,8 +178,8 @@
 			figure2.childNodes[5].childNodes[1].textContent = array.tracks.items[1].artists[0].name;
 			figure2.childNodes[5].childNodes[3].textContent = array.tracks.items[1].name;
 
-			Listener.addListener(figure1.childNodes[1], "click", Listener.chargeSong, false);
-			Listener.addListener(figure2.childNodes[1], "click", Listener.chargeSong, false);
+			Listener.addListener(figure1.childNodes[1], "click", Listener.chargeFooter, false);
+			Listener.addListener(figure2.childNodes[1], "click", Listener.chargeFooter, false);
 		},
 
 		start: function start(){
