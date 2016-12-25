@@ -146,17 +146,18 @@ img {
 
 .title {
   margin-left: 20px;
-  margin-top: 20px;
+  margin-top: 15px;
 }
 
 .title h4{
   color: white;
+  font-size: 14px;
 }
 
 .title h2{
   color: #A0A0A0;
   margin-top: 10px;
-  font-size: 14px;
+  font-size: 10px;
 }
 
 #sdiv {
@@ -173,10 +174,20 @@ img {
   text-align: center;
 }
 
-#slider {
+#slider{
 	width: 65%;
 	height: 4px;
 	background: #404040;
+  border-radius: 2px;
+  position: absolute;
+  left: 40px;
+  right: 40px;
+}
+
+#slider-actual{
+	width: 0px;
+	height: 4px;
+	background: #1DB954;
   border-radius: 2px;
   position: absolute;
   left: 40px;

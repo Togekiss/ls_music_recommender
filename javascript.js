@@ -38,8 +38,9 @@
 	}
 
 	var Listener = {
+		sliderGreen : false,
+		playClicked : false,
 		slider,
-		playing : false,
 
 		addListener : function addListener (target, event, callback, capture) {
 			target.addEventListener(event, callback, capture);
@@ -62,7 +63,12 @@
 		chargeFooter: function chargeFooter(event) {
 			event.preventDefault();
 
-			playing = false;
+			if (Listener.playClicked) {
+				clearInterval(slider);
+				clearInterval(sliderGreen);
+				Listener.playClicked = false;
+			}
+
 			var li = document.getElementsByClassName('info')[0];
 			var figure = event.target.parentNode;
 			li.childNodes[1].src = figure.childNodes[1].src;
@@ -84,19 +90,48 @@
 			if (time < 10) timer.textContent = "0:0" + time.toString();
 			else timer.textContent = "0:" + time.toString();
 
-			if (time == 30) {
-				clearInterval(slider);
-				playing = false;
-				Listener.songFinished();
-			}
+			if (time == 30) Listener.songFinished();
+		},
+
+		updateSliderGreen: function updateSliderGreen() {
+
+			var sliderActual = document.getElementById('slider-actual');
+			var sliderTotal = document.getElementById('slider');
+			var widthActual = sliderActual.offsetWidth;
+			var widthTotal = sliderTotal.offsetWidth;
+
+			var widthTotal = sliderTotal.offsetWidth / 30;
+			var newWidth = widthActual + widthTotal;
+
+			sliderActual.style.width = newWidth.toString() + "px";
+		},
+
+		clickSlider: function clickSlider(event) {
+
+			var sliderPos = event.target.getBoundingClientRect();
+
+			var percentage = (event.pageX - sliderPos.left) / event.target.offsetWidth;
+			var sliderActual = document.getElementById('slider-actual');
+			var timer = document.getElementById('timer-actual');
+			var time = percentage * 30;
+			var width = percentage * 100;
+
+			audioObject.currentTime = time;
+
+			if (time < 10) timer.textContent = "0:0" + time.toString();
+			else timer.textContent = "0:" + time.toString();
+			sliderActual.style.width = width.toString() + "%";
+			console.log(width);
+			console.log(percentage);
 		},
 
 		songPlay: function songPlay(event) {
 			event.preventDefault();
 
-			playing = true;
+			Listener.playClicked = true;
 		  audioObject.play();
 			slider = setInterval(Listener.updateSlider, 1000);
+			sliderGreen = setInterval(Listener.updateSliderGreen, 1000);
 
 			var start = document.getElementById('play');
 			start.setAttribute("id", "pause");
@@ -115,8 +150,10 @@
 
 		songFinished : function songFinished () {
 			clearInterval(slider);
+			clearInterval(sliderGreen);
 
 			document.getElementById('timer-actual').textContent = "0:00";
+			document.getElementById('slider-actual').style.width = "0px";
 			var start = document.getElementById('pause');
 			audioObject.load();
 
@@ -139,9 +176,14 @@
 		},
 
 		songPause: function songPause(event) {
-			if (!playing) document.getElementById('timer-actual').textContent = "0:00";
-			clearInterval(slider);
-			event.preventDefault();
+			if (!Listener.playClicked) {
+				document.getElementById('timer-actual').textContent = "0:00";
+				document.getElementById('slider-actual').style.width = "0px";
+			}
+			else {
+				clearInterval(slider);
+				clearInterval(sliderGreen);
+			}
 
 			var start = document.getElementById('pause');
     	if (start != null) {
@@ -186,6 +228,9 @@
 
 			var button = document.getElementById('action-search');
 			Listener.addListener (button, 'click', Listener.eventSearch, false);
+
+			var sliderActual = document.getElementById('slider');
+			Listener.addListener (sliderActual, 'click', Listener.clickSlider , true);
 
 			var start = document.getElementById('play');
 			Listener.addListener (start, 'click', Listener.songPlay, false);
