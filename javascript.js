@@ -46,6 +46,22 @@
 			target.addEventListener(event, callback, capture);
 		},
 
+		changeDiv : function changeDiv (event) {
+			event.preventDefault();
+
+			var underlined = document.getElementsByClassName('underlined')[0];
+
+			if ((event.target.parentNode != underlined) & (event.target.id == "results")) {
+				event.target.parentNode.setAttribute("class", "underlined");
+				underlined.removeAttribute("class");
+			}
+
+			if ((event.target.parentNode != underlined) & (event.target.id == "toptracks")) {
+				event.target.parentNode.setAttribute("class", "underlined");
+				underlined.removeAttribute("class");
+			}
+		},
+
 		eventSearch: function eventPlay(event) {
 			event.preventDefault();
 
@@ -76,7 +92,7 @@
 			li.childNodes[3].childNodes[3].textContent = figure.childNodes[5].childNodes[3].textContent;
 
 			Listener.songPause(event);
-			if (figure.id == "results-img1") audioObject = new Audio(items.tracks.items[itemIndex[0]].preview_url);
+			if (figure.id == "img1") audioObject = new Audio(items.tracks.items[itemIndex[0]].preview_url);
 			else  audioObject = new Audio(items.tracks.items[itemIndex[1]].preview_url);
 		},
 
@@ -208,8 +224,8 @@
 	var Application = {
 		replaceResults: function replaceResults(array) {
 			items = array;
-			var figure1 = document.getElementById('results-img1');
-			var figure2 = document.getElementById('results-img2');
+			var figure1 = document.getElementById('img1');
+			var figure2 = document.getElementById('img2');
 
 			figure1.childNodes[1].src = array.tracks.items[0].album.images[0].url;
 			figure2.childNodes[1].src = array.tracks.items[1].album.images[0].url;
@@ -231,6 +247,10 @@
 
 			var sliderActual = document.getElementById('slider');
 			Listener.addListener (sliderActual, 'click', Listener.clickSlider , true);
+
+			var menusection = document.getElementsByClassName('menusection')[0];
+			Listener.addListener (menusection.childNodes[3], 'click', Listener.changeDiv, true);
+			Listener.addListener (menusection.childNodes[1], 'click', Listener.changeDiv, true);
 
 			var start = document.getElementById('play');
 			Listener.addListener (start, 'click', Listener.songPlay, false);
