@@ -7,42 +7,47 @@
 	<title>LS Music Recommender</title>
 	<meta name="description" content="LaSalle Music Recommender">
 	<meta name="author" content="Martina, Rogelio i Vector">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
-	<link href="https://fonts.googleapis.com/css?family=Oswald:300,400" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="main.css">
+	<link rel="stylesheet" type="text/css" href="proxima-nova.css">
 </head>
 <body>
 
 <header class="clearfix">
 	<nav class="menu">
 		<ul class="menulist">
-			<li class="logo"><a title="Logo" href="#main"><span class="logo"></span></a></li>
-			<li class="search">
-				<form class ="search "method="post">
+			<li><a title="Logo" href="#main"><span class="logo"></span></a></li>
+			<li>
+				<form method="post">
 					<label for="search"></label>
 					<input id="search" name="query" placeholder="Buscar">
 					<button id="action-search" type="submit">Buscar</button>
 				</form>
 			</li>
-			<li class="listbutton"><a title="List" href=""><span class="listbutton"></span></a></li>
+			<li><a title="List" href=""></a></li>
+		</ul>
+
+		<ul class="menusection">
+			<li class="underlined"><a id="toptracks">Recomendaciones</a></li>
+			<li><a id="results">Resultados</a></li>
 		</ul>
 	</nav>
 </header>
 
-<div id="main" class="clearfix">
-	<section id="results">
+<div id="container" class="clearfix">
+	<section>
 		<h2>Resultados</h2>
-
-
 
 		<button class="previous"><span class="arrowp"></button>
 
-		<div id="results-images">
+		<div>
 			<ul>
 				<li>
-					<figure>
+					<figure id="img1">
 						<img src="https://i.ytimg.com/vi/cfOa1a8hYP8/hqdefault.jpg" alt="Radiohead - Lotus Flower">
-						<span class=""></span>
+						<span></span>
 						<figcaption>
 							<h3>Radiohead</h3>
 							<h4>Lotus Flower</h4>
@@ -50,9 +55,9 @@
 					</figure>
 				</li>
 				<li>
-					<figure>
+					<figure id="img2">
 						<img src="https://i.ytimg.com/vi/cfOa1a8hYP8/hqdefault.jpg" alt="Radiohead - Lotus Flower">
-						<span class=""></span>
+						<span></span>
 						<figcaption>
 							<h3>Radiohead</h3>
 							<h4>Lotus Flower</h4>
@@ -63,61 +68,38 @@
 		</div>
 
 		<button class="previous"><span class="arrown"></span></button>
-
-
-
-	</section>
-
-	<section id="top-tracks">
-		<h2>Top Tracks</h2>
-
-		<nav class="">
-			<ul>
-				<li class=""><button class="previous"><span class=""></span></button></li>
-				<li>
-					<div id="top-tracks-images">
-						<ul>
-							<li>
-								<figure>
-									<img src="https://i.ytimg.com/vi/cfOa1a8hYP8/hqdefault.jpg" alt="Radiohead - Lotus Flower">
-									<span class=""></span>
-									<figcaption>
-										<h3>Radiohead</h3>
-										<h4>Lotus Flower</h4>
-									</figcaption>
-								</figure>
-							</li>
-							<li>
-								<figure>
-									<img src="https://i.ytimg.com/vi/cfOa1a8hYP8/hqdefault.jpg" alt="Radiohead - Lotus Flower">
-									<span class=""></span>
-									<figcaption>
-										<h3>Radiohead</h3>
-										<h4>Lotus Flower</h4>
-									</figcaption>
-								</figure>
-							</li>
-						</ul>
-					</div>
-				</li>
-				<li class=""><button class="next"><span class=""></span></button></li>
-			</ul>
-		</nav>
-
-	</section>
 </div>
 
-<footer>
+<footer id="footer">
+		<div class="player">
+	   <ul>
+	      <li class="info">
+					<img src="https://i.scdn.co/image/a725ebab6c05ee5d9d2ff0a43ccc49e6e7f2b6dc"/>
+					<section class="title">
+						<h4>Premiere</h4>
+						<h2>I Need You Back</h2>
+					</section>
+				</li>
+	      <li class="controller">
+            <div id="sdiv">
+							<p id="timer-actual">0:00</p>
+							<div id="slider"></div>
+							<div id="slider-actual"></div>
+            	<p id="timer-total">0:30</p>
+						</div>
+            <div id="buttons">
+							 <a id="skip_previous"><i class="material-icons">skip_previous</i></a>
+							 <a id="play"><i class="material-icons">play_circle_outline</i></a>
+            	 <a id="skip_next"><i class="material-icons">skip_next</i></a>
+            </div>
+	      </li>
+	   </ul>
+	</div>
 </footer>
-
-<!--
 
 <script type="text/javascript" src="spotify_api_data.js"></script>
 <script type="text/javascript" src="javascript.js"></script>
-
-<iframe src="https://embed.spotify.com/?uri=spotify:user:spotify:playlist:3rgsDhGHZxZ9sB9DQWQfuf"
-		width="300" height="80" frameborder="0" allowtransparency="true"></iframe>
--->
+<script type="text/javascript" src="swipe.js"></script>
 
 </body>
 </html>
