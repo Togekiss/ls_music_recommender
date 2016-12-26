@@ -31,7 +31,9 @@ body {
 }
 
 
-.menu {
+/* MENU */
+
+header {
     position: fixed;
     top: 0;
     left: 0;
@@ -42,27 +44,51 @@ body {
 
 }
 
+.menulist {
+    width: 100%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: darksalmon;
+}
+
 .menulist li{
-    display:inline-block;
+    float: left;
     background-color: #444;
-
 }
 
-.search {
+li .search {
     background-color: #666;
+    flex-grow: 2;
 }
 
-.logo:before { content:"\266B"; }
+li .logo {
+    flex-grow: 1;
+}
 
-.logo {
+span .logo:before { content:"\266B"; }
+
+span .logo {
     background-color: red;
+    font-size: 30px;
+    padding: 10px;
 }
 
-.listbutton:before { content:"\2261"; }
+li .listbutton {
+    flex-grow: 1;
+}
 
-.listbutton {
+span .listbutton:before { content:"\2261"; }
+
+span .listbutton {
     background-color: orange;
+    padding: 10px;
+    font-size: 30px;
 }
+
+
+/* MAIN */
 
 .previous {
     z-index: 1000;
