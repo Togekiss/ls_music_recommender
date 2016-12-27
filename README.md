@@ -4,7 +4,7 @@ Projecte final per Projectes Web I
 Autors:
 
 
-  Hector Ayuso
+  Hector "Saikon95" Ayuso
   
   Roger "rmarru" Marrugat
   
