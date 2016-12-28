@@ -79,9 +79,23 @@ li {
     line-height: 30px;
 }
 
-.underlined {
-    border-bottom: 1px solid white;
-    display: block;
+#underlined {
+  border: 1px solid white;
+  display: block;
+  width: 41%;
+  position: absolute;
+}
+
+.left{
+    margin-left: 10px;
+    -webkit-transition: margin-left 0.5s;
+    transition: margin-left 0.5s;
+}
+
+.right{
+    margin-left: 203px;
+    -webkit-transition: margin-left 0.5s;
+    transition: margin-left 0.5s;
 }
 
 .search {

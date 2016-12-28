@@ -49,16 +49,14 @@
 		changeDiv : function changeDiv (event) {
 			event.preventDefault();
 
-			var underlined = document.getElementsByClassName('underlined')[0];
+			var underlined = document.getElementById('underlined');
 
-			if ((event.target.parentNode != underlined) & (event.target.id == "results")) {
-				event.target.parentNode.setAttribute("class", "underlined");
-				underlined.removeAttribute("class");
+			if ((event.target.id == "results") && (underlined.className == "left")) {
+				underlined.setAttribute("class", "right");
 			}
 
-			if ((event.target.parentNode != underlined) & (event.target.id == "toptracks")) {
-				event.target.parentNode.setAttribute("class", "underlined");
-				underlined.removeAttribute("class");
+			if ((event.target.id == "toptracks") && (underlined.className == "right")) {
+					underlined.setAttribute("class", "left");
 			}
 		},
 
