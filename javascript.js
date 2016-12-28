@@ -86,8 +86,8 @@
 			}
 
 			var li = document.getElementsByClassName('info')[0];
-			var figure = event.target.parentNode;
-			li.childNodes[1].src = figure.childNodes[1].src;
+			var figure = event.target.parentNode.parentNode;
+			li.childNodes[1].childNodes[0].src = figure.childNodes[1].childNodes[0].src;
 			li.childNodes[3].childNodes[1].textContent = figure.childNodes[5].childNodes[1].textContent;
 			li.childNodes[3].childNodes[3].textContent = figure.childNodes[5].childNodes[3].textContent;
 
@@ -227,8 +227,8 @@
 			var figure1 = document.getElementById('img1');
 			var figure2 = document.getElementById('img2');
 
-			figure1.childNodes[1].src = array.tracks.items[0].album.images[0].url;
-			figure2.childNodes[1].src = array.tracks.items[1].album.images[0].url;
+			figure1.childNodes[1].childNodes[0].src = array.tracks.items[0].album.images[0].url;
+			figure2.childNodes[1].childNodes[0].src = array.tracks.items[1].album.images[0].url;
 
 			figure1.childNodes[5].childNodes[1].textContent = array.tracks.items[0].artists[0].name;
 			figure1.childNodes[5].childNodes[3].textContent = array.tracks.items[0].name;
@@ -236,8 +236,8 @@
 			figure2.childNodes[5].childNodes[1].textContent = array.tracks.items[1].artists[0].name;
 			figure2.childNodes[5].childNodes[3].textContent = array.tracks.items[1].name;
 
-			Listener.addListener(figure1.childNodes[1], "click", Listener.chargeFooter, false);
-			Listener.addListener(figure2.childNodes[1], "click", Listener.chargeFooter, false);
+			Listener.addListener(figure1.childNodes[1].childNodes[0], "click", Listener.chargeFooter, false);
+			Listener.addListener(figure2.childNodes[1].childNodes[0], "click", Listener.chargeFooter, false);
 		},
 
 		start: function start(){
