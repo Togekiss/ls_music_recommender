@@ -54,8 +54,6 @@ li {
     padding: 10px;
 }
 
-
-
 .menusection {
     width: 95%;
     display: flex;
@@ -279,7 +277,7 @@ figcaption {
 
 .title h2{
     color: #A0A0A0;
-    margin-top: 10px;
+    margin: 10px 0 0 0;
     font-size: 10px;
 }
 

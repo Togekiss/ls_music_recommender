@@ -26,7 +26,7 @@ function handleTouchMove(evt) {
         if ( xDiff > 0 ) {
           if (underlined.className == "left") {
             underlined.setAttribute("class", "right");
-          }
+          }  
         } else {
           if (underlined.className == "right") {
             underlined.setAttribute("class", "left");
@@ -36,4 +36,5 @@ function handleTouchMove(evt) {
 
     xDown = null;
     yDown = null;
+    divTouched = false;
 };

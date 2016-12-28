@@ -1,16 +1,19 @@
 
 (function(){
+	var limit_results = 10;
+	var country = "ES";
 	var audioObject = new Audio();
 	var firstPlay = true;
 	var itemIndex = [0, 1];
 	var items;
+	var maxResults;
 
 	var MusicRecommender = {
 		search : function search (query) {
 				var url = "https://api.spotify.com/v1/search?q=" + query + "&type=album,track,artist&market=" + country + "&limit=" + limit_results;
-				var array = JSON.parse(AJAX.request(url));
-				console.log(array);
-				return array;
+				items = JSON.parse(AJAX.request(url));
+			//	console.log(array);
+				maxResults = items.tracks.items.length;
 				//this.getAlbum(array.albums.items[0].id);
 				//this.getArtist(array.artists.items[0].id);
 		},
@@ -70,8 +73,8 @@
 				return false;
 			}
 
-			var array = MusicRecommender.search(query);
-			Application.replaceResults(array);
+			MusicRecommender.search(query);
+			Application.replaceResults();
 		},
 
 		chargeFooter: function chargeFooter(event) {
@@ -216,23 +219,38 @@
 				start.removeEventListener("click", Listener.songPause);
 				Listener.addListener (start, 'click', Listener.songPlay, false);
 			}
+		},
+
+		changeRow: function changeRow(event) {
+
+			if ((event.target.childNodes[0].className == "arrown") && (itemIndex[1] < maxResults-1)) {
+				itemIndex[0] = itemIndex[1];
+				itemIndex[1]++;
+				Application.replaceResults();
+			}
+
+			if ((event.target.childNodes[0].className == "arrowp") && (itemIndex[0] > 0)) {
+				itemIndex[1] = itemIndex[0];
+				itemIndex[0]--;
+				Application.replaceResults();
+			}
 		}
 	}
 
 	var Application = {
-		replaceResults: function replaceResults(array) {
-			items = array;
+		replaceResults: function replaceResults() {
+
 			var figure1 = document.getElementById('img1');
 			var figure2 = document.getElementById('img2');
 
-			figure1.childNodes[1].childNodes[0].src = array.tracks.items[0].album.images[0].url;
-			figure2.childNodes[1].childNodes[0].src = array.tracks.items[1].album.images[0].url;
+			figure1.childNodes[1].childNodes[0].src = items.tracks.items[itemIndex[0]].album.images[0].url;
+			figure2.childNodes[1].childNodes[0].src = items.tracks.items[itemIndex[1]].album.images[0].url;
 
-			figure1.childNodes[5].childNodes[1].textContent = array.tracks.items[0].artists[0].name;
-			figure1.childNodes[5].childNodes[3].textContent = array.tracks.items[0].name;
+			figure1.childNodes[5].childNodes[1].textContent = items.tracks.items[itemIndex[0]].artists[0].name;
+			figure1.childNodes[5].childNodes[3].textContent = items.tracks.items[itemIndex[0]].name;
 
-			figure2.childNodes[5].childNodes[1].textContent = array.tracks.items[1].artists[0].name;
-			figure2.childNodes[5].childNodes[3].textContent = array.tracks.items[1].name;
+			figure2.childNodes[5].childNodes[1].textContent = items.tracks.items[itemIndex[1]].artists[0].name;
+			figure2.childNodes[5].childNodes[3].textContent = items.tracks.items[itemIndex[1]].name;
 
 			Listener.addListener(figure1.childNodes[1].childNodes[0], "click", Listener.chargeFooter, false);
 			Listener.addListener(figure2.childNodes[1].childNodes[0], "click", Listener.chargeFooter, false);
@@ -252,11 +270,14 @@
 
 			var start = document.getElementById('play');
 			Listener.addListener (start, 'click', Listener.songPlay, false);
+
+			var navButtons = document.getElementsByClassName('resultsNavButton');
+			Listener.addListener (navButtons[0], 'click', Listener.changeRow, false);
+			Listener.addListener (navButtons[1], 'click', Listener.changeRow, false);
+			Listener.addListener (navButtons[2], 'click', Listener.changeRow, false);
+			Listener.addListener (navButtons[3], 'click', Listener.changeRow, false);
 		}
 	}
-
-	var limit_results = 10;
-	var country = "ES";
 
 	Listener.addListener(document, "DOMContentLoaded", Application.start(spotify_api_key, 0), false);
 
