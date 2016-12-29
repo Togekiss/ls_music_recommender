@@ -190,12 +190,19 @@ h2 {
     margin-top: -5px;
 }
 
-.imageContainer {
+figure {
     width: 160px;
     height: 160px;
     overflow: hidden;
     position:relative;
 }
+
+/*.imageContainer {
+    width: 160px;
+    height: 160px;
+    overflow: hidden;
+    position:relative;
+}*/
 
 .imageContainer img {
     position: absolute;
@@ -208,8 +215,13 @@ h2 {
 }
 
 figcaption {
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0,0,0,0.6);
     position: absolute;
+    bottom: 0px;
+    padding: 5px;
+    width: 160px;
+    line-height: 20px;
+    overflow-wrap: break-word;
 
 }
 
