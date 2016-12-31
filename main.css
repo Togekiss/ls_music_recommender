@@ -43,6 +43,10 @@ li {
     list-style-type: none;
 }
 
+
+
+/* NAV */
+
 .menu {
     position: fixed;
     z-index: 1;
@@ -111,6 +115,11 @@ li {
 .listbutton {
     background-color: orange;
 }
+
+
+
+/* BODY */
+
 
 .topspace {
     margin-bottom: 80px;
@@ -217,32 +226,305 @@ figcaption {
     position: absolute;
     bottom: 0px;
     padding: 5px;
-    width: 160px;
+    width: 150px;
     line-height: 20px;
-    overflow-wrap: break-word;
 
 }
 
 
 
-#footer {
+/* PLAYER */
+
+
+.player {
     position: fixed;
     left: 0px;
     bottom: 0px;
     height: 80px;
     width: 100%;
+    background-color: darkslategray;
 }
 
-.player {
-    height: 100%;
+.player  .imageContainer {
+    width: 80px;
+    height: 80px;
+    overflow: hidden;
+    position: relative;
+    float:left;
+}
+
+.player .imageContainer img {
     width: 100%;
-    background-color: #282828;
+    height: 100%;
+    left: -1000%;
+    right: -1000%;
+    top: -1000%;
+    bottom: -1000%;
 }
 
-.player ul{
-    display: flex;
+.player .info {
+    margin-left: 85px;
+    /*clear: both;
+    float: right;*/
 }
 
+.info h2 {
+
+}
+
+.info h4 {
+    float: left;
+}
+
+.playerControl {
+    width: auto;
+    background-color: red;
+    margin-left: 85px;
+}
+
+.playerControl .buttons {
+    float: left;
+    margin-right: 5px;
+    width: 31%;
+    background-color: darkslateblue;
+}
+
+#play .material-icons {
+    color: #A0A0A0;
+    font-size: 32px;
+    text-decoration: none;
+    font-weight: normal;
+    text-align: center;
+}
+
+#play .material-icons:hover {
+    color: white;
+    font-size: 38px;
+    top: 7px;
+    left: 90px;
+}
+
+#play .material-icons:active {
+    color: grey;
+    font-size: 32px;
+    top: 10px;
+    left: 93px;
+    -webkit-transition: font-size 0.1s, color 0.1s, top 0.1s, left 0.1s;
+    transition: font-size 0.1s, color 0.1s, top 0.1s, left 0.1s;
+}
+
+#skip_previous .material-icons {
+    color: #A0A0A0;
+    text-decoration: none;
+    font-weight: normal;
+    width: 30px;
+    height: 25px;
+    text-align: center;
+}
+
+#skip_previous .material-icons:hover {
+    color: white;
+}
+
+#skip_previous .material-icons:active {
+    color: grey;
+}
+
+#skip_next .material-icons {
+    color: #A0A0A0;
+    text-decoration: none;
+    font-weight: normal;
+    width: 30px;
+    height: 25px;
+    text-align: center;
+}
+
+#skip_next .material-icons:hover {
+    color: white;
+}
+
+#skip_next .material-icons:active {
+    color: grey;
+}
+
+#pause .material-icons {
+    color: #A0A0A0;
+    font-size: 32px;
+    text-decoration: none;
+    font-weight: normal;
+    text-align: center;
+}
+
+#pause .material-icons:hover {
+    color: white;
+    font-size: 38px;
+    top: 7px;
+    left: 90px;
+}
+
+#pause .material-icons:active {
+    color: grey;
+    font-size: 32px;
+    top: 10px;
+    left: 93px;
+    -webkit-transition: font-size 0.1s, color 0.1s, top 0.1s, left 0.1s;
+    transition: font-size 0.1s, color 0.1s, top 0.1s, left 0.1s;
+}
+
+.sdiv {
+    width: 69%;
+    background-color: #444;
+    clear: both;
+}
+
+.sdiv p {
+    color: #A0A0A0;
+    line-height: 0;
+    font-size: 9pt;
+    font-family: Arial, Sans-Serif;
+}
+
+
+#slider{
+    width: 65%;
+    height: 4px;
+    background: #404040;
+    border-radius: 2px;
+    /*position: absolute;
+    left: 40px;
+    right: 40px;*/
+}
+/*
+
+
+#slider-actual{
+    width: 0px;
+    height: 4px;
+    background: #1DB954;
+    border-radius: 2px;
+    position: absolute;
+    left: 40px;
+    right: 40px;
+}
+
+
+
+#timer-total {
+    position: absolute;
+    right: 0;
+    margin-right: 5px;
+}
+
+#timer-actual {
+    position: absolute;
+    left: 0;
+    margin-left: 5px;
+}
+
+#play .material-icons {
+    color: #A0A0A0;
+    font-size: 32px;
+    text-decoration: none;
+    font-weight: normal;
+    position: absolute;
+    top: 10px;
+    left: 93px;
+    padding-left: 2px;
+    padding-top: 5px;
+    text-align: center;
+}
+
+#play .material-icons:hover {
+    color: white;
+    font-size: 38px;
+    top: 7px;
+    left: 90px;
+}
+
+#play .material-icons:active {
+    color: grey;
+    font-size: 32px;
+    top: 10px;
+    left: 93px;
+    -webkit-transition: font-size 0.1s, color 0.1s, top 0.1s, left 0.1s;
+    transition: font-size 0.1s, color 0.1s, top 0.1s, left 0.1s;
+}
+
+#skip_previous .material-icons {
+    color: #A0A0A0;
+    text-decoration: none;
+    font-weight: normal;
+    position: absolute;
+    top: 15px;
+    left: 50px;
+    width: 30px;
+    height: 25px;
+    padding-left: 2px;
+    padding-top: 5px;
+    text-align: center;
+}
+
+#skip_previous .material-icons:hover {
+    color: white;
+}
+
+#skip_previous .material-icons:active {
+    color: grey;
+}
+
+#skip_next .material-icons {
+    color: #A0A0A0;
+    text-decoration: none;
+    font-weight: normal;
+    position: absolute;
+    top: 15px;
+    left: 137px;
+    width: 30px;
+    height: 25px;
+    padding-left: 2px;
+    padding-top: 5px;
+    text-align: center;
+}
+
+#skip_next .material-icons:hover {
+    color: white;
+}
+
+#skip_next .material-icons:active {
+    color: grey;
+}
+
+#pause .material-icons {
+    color: #A0A0A0;
+    font-size: 32px;
+    text-decoration: none;
+    font-weight: normal;
+    position: absolute;
+    top: 10px;
+    left: 93px;
+    padding-left: 2px;
+    padding-top: 5px;
+    text-align: center;
+}
+
+#pause .material-icons:hover {
+    color: white;
+    font-size: 38px;
+    top: 7px;
+    left: 90px;
+}
+
+#pause .material-icons:active {
+    color: grey;
+    font-size: 32px;
+    top: 10px;
+    left: 93px;
+    -webkit-transition: font-size 0.1s, color 0.1s, top 0.1s, left 0.1s;
+    transition: font-size 0.1s, color 0.1s, top 0.1s, left 0.1s;
+}
+
+
+/*
 .info {
     display: flex;
     width: 45%;
@@ -257,13 +539,13 @@ figcaption {
 /*.info img {
     height: 80px;
     width: 80px;
-}*/
+}
 
 .info  .imageContainer {
     width: 80px;
     height: 80px;
     overflow: hidden;
-    position:relative;
+    position: relative;
 }
 
 .info .imageContainer img {
@@ -447,3 +729,4 @@ p {
     -webkit-transition: font-size 0.1s, color 0.1s, top 0.1s, left 0.1s;
     transition: font-size 0.1s, color 0.1s, top 0.1s, left 0.1s;
 }
+*/
