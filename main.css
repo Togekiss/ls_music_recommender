@@ -228,7 +228,7 @@ figcaption {
     background-color: #222;
 }
 
-.player  .imageContainer {
+.playerImageContainer {
     width: 80px;
     height: 80px;
     overflow: hidden;
@@ -236,7 +236,7 @@ figcaption {
     float: left;
 }
 
-.player .imageContainer img {
+.playerImageContainer img {
     width: 100%;
     height: 100%;
     left: -1000%;
@@ -313,7 +313,7 @@ figcaption {
     vertical-align: middle;
     position: absolute;
     bottom: 17px;
-    width: 20px;
+    width: 0;
     height: 4px;
     background: #1DB954;
     border-radius: 2px;
