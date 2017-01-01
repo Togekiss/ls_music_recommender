@@ -82,10 +82,10 @@ li {
 }
 
 #underlined {
-  border: 1px solid white;
-  display: block;
-  width: 41%;
-  position: absolute;
+    border: 1px solid white;
+    display: block;
+    width: 41%;
+    position: absolute;
 }
 
 .left{
@@ -121,7 +121,7 @@ li {
 /* BODY */
 
 
-.topspace {
+#topspace {
     margin-bottom: 80px;
 }
 
@@ -137,7 +137,6 @@ h2 {
 }
 
 .resultsRow {
-    background-color: blueviolet;
     width: 100%;
     display: inline-block;
     text-align: justify;
@@ -160,25 +159,16 @@ h2 {
 }
 
 .resultsNavButton {
-    /* z-index: 1000;
-    border-radius: 32px;*/
     background-color: rgba(180,180,180,0.5);
     border-style: none;
     color: #848484;
     line-height: 60px;
-    /*font-size: 40px;
-    opacity: 0.8;
-    text-decoration: none;*/
     width: 32px;
     height: 160px;
-    /*margin: 0 5px 0 5px;
-    /* left: 18px;
-    display: block;
-    position: relative;*/
 }
 
 .arrowp:before {
-    color: #666;
+    color: #cccccc;
     text-decoration: none;
     font-size: 72px;
     font-weight: bold;
@@ -188,7 +178,7 @@ h2 {
 }
 
 .arrown:before {
-    color: #666;
+    color: #cccccc;
     text-decoration: none;
     font-size: 72px;
     font-weight: bold;
@@ -203,13 +193,6 @@ figure {
     overflow: hidden;
     position:relative;
 }
-
-/*.imageContainer {
-    width: 160px;
-    height: 160px;
-    overflow: hidden;
-    position:relative;
-}*/
 
 .imageContainer img {
     position: absolute;
@@ -242,7 +225,7 @@ figcaption {
     bottom: 0px;
     height: 80px;
     width: 100%;
-    background-color: darkslategray;
+    background-color: #222;
 }
 
 .player  .imageContainer {
@@ -250,7 +233,7 @@ figcaption {
     height: 80px;
     overflow: hidden;
     position: relative;
-    float:left;
+    float: left;
 }
 
 .player .imageContainer img {
@@ -263,189 +246,96 @@ figcaption {
 }
 
 .player .info {
-    margin-left: 85px;
-    /*clear: both;
-    float: right;*/
-}
-
-.info h2 {
-
+    margin: 5px 0 0 85px;
+    height: 35px;
+    line-height: 35px;
 }
 
 .info h4 {
-    float: left;
+    display: inline;
+    vertical-align: baseline;
+    font-size: 14px;
+    font-style: normal;
+    margin-left: 5px;
 }
 
+.info h2 {
+    display: inline;
+    vertical-align: baseline;
+    font-size: 20px;
+
+}
+
+
 .playerControl {
-    width: auto;
-    background-color: red;
-    margin-left: 85px;
+    height: 40px;
+    margin: 0 0 0 85px;
 }
 
 .playerControl .buttons {
-    float: left;
-    margin-right: 5px;
-    width: 31%;
-    background-color: darkslateblue;
-}
-
-#play .material-icons {
-    color: #A0A0A0;
-    font-size: 32px;
-    text-decoration: none;
-    font-weight: normal;
+    display: inline-block;
+    vertical-align: top;
+    width: 30%;
     text-align: center;
 }
 
-#play .material-icons:hover {
-    color: white;
-    font-size: 38px;
-    top: 7px;
-    left: 90px;
-}
-
-#play .material-icons:active {
-    color: grey;
-    font-size: 32px;
-    top: 10px;
-    left: 93px;
-    -webkit-transition: font-size 0.1s, color 0.1s, top 0.1s, left 0.1s;
-    transition: font-size 0.1s, color 0.1s, top 0.1s, left 0.1s;
-}
-
-#skip_previous .material-icons {
-    color: #A0A0A0;
-    text-decoration: none;
-    font-weight: normal;
-    width: 30px;
-    height: 25px;
-    text-align: center;
-}
-
-#skip_previous .material-icons:hover {
-    color: white;
-}
-
-#skip_previous .material-icons:active {
-    color: grey;
-}
-
-#skip_next .material-icons {
-    color: #A0A0A0;
-    text-decoration: none;
-    font-weight: normal;
-    width: 30px;
-    height: 25px;
-    text-align: center;
-}
-
-#skip_next .material-icons:hover {
-    color: white;
-}
-
-#skip_next .material-icons:active {
-    color: grey;
-}
-
-#pause .material-icons {
-    color: #A0A0A0;
-    font-size: 32px;
-    text-decoration: none;
-    font-weight: normal;
-    text-align: center;
-}
-
-#pause .material-icons:hover {
-    color: white;
-    font-size: 38px;
-    top: 7px;
-    left: 90px;
-}
-
-#pause .material-icons:active {
-    color: grey;
-    font-size: 32px;
-    top: 10px;
-    left: 93px;
-    -webkit-transition: font-size 0.1s, color 0.1s, top 0.1s, left 0.1s;
-    transition: font-size 0.1s, color 0.1s, top 0.1s, left 0.1s;
-}
 
 .sdiv {
-    width: 69%;
-    background-color: #444;
-    clear: both;
+    display: inline-block;
+    vertical-align: top;
+    width: 70%;
+    height: 40px;
+    margin: auto 0;
+    text-align: center;
+    line-height: 40px;
 }
 
 .sdiv p {
     color: #A0A0A0;
-    line-height: 0;
     font-size: 9pt;
     font-family: Arial, Sans-Serif;
+    display: inline-block;
+    margin: 0 5px;
 }
 
 
 #slider{
+    display: inline-block;
+    vertical-align: middle;
     width: 65%;
     height: 4px;
-    background: #404040;
+    background-color: #ddd;
     border-radius: 2px;
-    /*position: absolute;
-    left: 40px;
-    right: 40px;*/
 }
-/*
-
 
 #slider-actual{
-    width: 0px;
+    display: inline-block;
+    vertical-align: middle;
+    position: absolute;
+    bottom: 17px;
+    width: 20px;
     height: 4px;
     background: #1DB954;
     border-radius: 2px;
-    position: absolute;
-    left: 40px;
-    right: 40px;
 }
 
-
-
-#timer-total {
-    position: absolute;
-    right: 0;
-    margin-right: 5px;
-}
-
-#timer-actual {
-    position: absolute;
-    left: 0;
-    margin-left: 5px;
-}
 
 #play .material-icons {
     color: #A0A0A0;
     font-size: 32px;
     text-decoration: none;
     font-weight: normal;
-    position: absolute;
-    top: 10px;
-    left: 93px;
-    padding-left: 2px;
-    padding-top: 5px;
     text-align: center;
 }
 
 #play .material-icons:hover {
     color: white;
     font-size: 38px;
-    top: 7px;
-    left: 90px;
 }
 
 #play .material-icons:active {
     color: grey;
     font-size: 32px;
-    top: 10px;
-    left: 93px;
     -webkit-transition: font-size 0.1s, color 0.1s, top 0.1s, left 0.1s;
     transition: font-size 0.1s, color 0.1s, top 0.1s, left 0.1s;
 }
@@ -454,13 +344,6 @@ figcaption {
     color: #A0A0A0;
     text-decoration: none;
     font-weight: normal;
-    position: absolute;
-    top: 15px;
-    left: 50px;
-    width: 30px;
-    height: 25px;
-    padding-left: 2px;
-    padding-top: 5px;
     text-align: center;
 }
 
@@ -476,13 +359,6 @@ figcaption {
     color: #A0A0A0;
     text-decoration: none;
     font-weight: normal;
-    position: absolute;
-    top: 15px;
-    left: 137px;
-    width: 30px;
-    height: 25px;
-    padding-left: 2px;
-    padding-top: 5px;
     text-align: center;
 }
 
@@ -499,234 +375,17 @@ figcaption {
     font-size: 32px;
     text-decoration: none;
     font-weight: normal;
-    position: absolute;
-    top: 10px;
-    left: 93px;
-    padding-left: 2px;
-    padding-top: 5px;
     text-align: center;
 }
 
 #pause .material-icons:hover {
     color: white;
     font-size: 38px;
-    top: 7px;
-    left: 90px;
 }
 
 #pause .material-icons:active {
     color: grey;
     font-size: 32px;
-    top: 10px;
-    left: 93px;
     -webkit-transition: font-size 0.1s, color 0.1s, top 0.1s, left 0.1s;
     transition: font-size 0.1s, color 0.1s, top 0.1s, left 0.1s;
 }
-
-
-/*
-.info {
-    display: flex;
-    width: 45%;
-    float: left;
-}
-
-.controller {
-    width: 55%;
-    position: relative;
-}
-
-/*.info img {
-    height: 80px;
-    width: 80px;
-}
-
-.info  .imageContainer {
-    width: 80px;
-    height: 80px;
-    overflow: hidden;
-    position: relative;
-}
-
-.info .imageContainer img {
-    width:100%;
-    height: 100%;
-    left: -1000%;
-    right: -1000%;
-    top: -1000%;
-    bottom: -1000%;
-}
-
-
-
-.title {
-    margin-left: 20px;
-    margin-top: 15px;
-}
-
-.title h4{
-    color: white;
-    font-size: 14px;
-}
-
-.title h2{
-    color: #A0A0A0;
-    margin: 10px 0 0 0;
-    font-size: 10px;
-}
-
-#sdiv {
-    width: 100%;
-    height: 50%;
-    position: absolute;
-    margin-top: 60px;
-}
-
-#buttons {
-    width: 100%;
-    height: 50%;
-    position: absolute;
-    text-align: center;
-}
-
-#slider{
-    width: 65%;
-    height: 4px;
-    background: #404040;
-    border-radius: 2px;
-    position: absolute;
-    left: 40px;
-    right: 40px;
-}
-
-#slider-actual{
-    width: 0px;
-    height: 4px;
-    background: #1DB954;
-    border-radius: 2px;
-    position: absolute;
-    left: 40px;
-    right: 40px;
-}
-
-p {
-    color: #A0A0A0;
-    line-height: 0;
-    font-size: 9pt;
-    font-family: Arial, Sans-Serif;
-}
-
-#timer-total {
-    position: absolute;
-    right: 0;
-    margin-right: 5px;
-}
-
-#timer-actual {
-    position: absolute;
-    left: 0;
-    margin-left: 5px;
-}
-
-#play .material-icons {
-    color: #A0A0A0;
-    font-size: 32px;
-    text-decoration: none;
-    font-weight: normal;
-    position: absolute;
-    top: 10px;
-    left: 93px;
-    padding-left: 2px;
-    padding-top: 5px;
-    text-align: center;
-}
-
-#play .material-icons:hover {
-    color: white;
-    font-size: 38px;
-    top: 7px;
-    left: 90px;
-}
-
-#play .material-icons:active {
-    color: grey;
-    font-size: 32px;
-    top: 10px;
-    left: 93px;
-    -webkit-transition: font-size 0.1s, color 0.1s, top 0.1s, left 0.1s;
-    transition: font-size 0.1s, color 0.1s, top 0.1s, left 0.1s;
-}
-
-#skip_previous .material-icons {
-    color: #A0A0A0;
-    text-decoration: none;
-    font-weight: normal;
-    position: absolute;
-    top: 15px;
-    left: 50px;
-    width: 30px;
-    height: 25px;
-    padding-left: 2px;
-    padding-top: 5px;
-    text-align: center;
-}
-
-#skip_previous .material-icons:hover {
-    color: white;
-}
-
-#skip_previous .material-icons:active {
-    color: grey;
-}
-
-#skip_next .material-icons {
-    color: #A0A0A0;
-    text-decoration: none;
-    font-weight: normal;
-    position: absolute;
-    top: 15px;
-    left: 137px;
-    width: 30px;
-    height: 25px;
-    padding-left: 2px;
-    padding-top: 5px;
-    text-align: center;
-}
-
-#skip_next .material-icons:hover {
-    color: white;
-}
-
-#skip_next .material-icons:active {
-    color: grey;
-}
-
-#pause .material-icons {
-    color: #A0A0A0;
-    font-size: 32px;
-    text-decoration: none;
-    font-weight: normal;
-    position: absolute;
-    top: 10px;
-    left: 93px;
-    padding-left: 2px;
-    padding-top: 5px;
-    text-align: center;
-}
-
-#pause .material-icons:hover {
-    color: white;
-    font-size: 38px;
-    top: 7px;
-    left: 90px;
-}
-
-#pause .material-icons:active {
-    color: grey;
-    font-size: 32px;
-    top: 10px;
-    left: 93px;
-    -webkit-transition: font-size 0.1s, color 0.1s, top 0.1s, left 0.1s;
-    transition: font-size 0.1s, color 0.1s, top 0.1s, left 0.1s;
-}
-*/

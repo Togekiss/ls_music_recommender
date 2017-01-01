@@ -88,6 +88,7 @@
 
 			var li = document.getElementsByClassName('info')[0];
 			var figure = event.target.parentNode.parentNode;
+			console.log(figure);
 			li.childNodes[1].childNodes[0].src = figure.childNodes[1].childNodes[0].src;
 			li.childNodes[3].childNodes[1].textContent = figure.childNodes[5].childNodes[1].textContent;
 			li.childNodes[3].childNodes[3].textContent = figure.childNodes[5].childNodes[3].textContent;
