@@ -211,7 +211,9 @@ figcaption {
     padding: 5px;
     width: 150px;
     line-height: 20px;
-
+    max-height: 150px;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 
@@ -249,21 +251,23 @@ figcaption {
     margin: 5px 0 0 85px;
     height: 35px;
     line-height: 35px;
+    overflow: hidden;
 }
 
 .info h4 {
-    display: inline;
-    vertical-align: baseline;
+    float:left;
     font-size: 14px;
     font-style: normal;
     margin-left: 5px;
+    margin-right: 10px;
 }
 
 .info h2 {
-    display: inline;
-    vertical-align: baseline;
     font-size: 20px;
-
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-right: 10px;
 }
 
 
