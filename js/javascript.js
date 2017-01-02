@@ -123,7 +123,6 @@
 			var sliderActual = document.getElementById('slider-actual');
 			var sliderTotal = document.getElementById('slider');
 			var widthActual = sliderActual.offsetWidth;
-			var widthTotal = sliderTotal.offsetWidth;
 
 			var widthTotal = sliderTotal.offsetWidth / 30;
 			var newWidth = widthActual + widthTotal;
