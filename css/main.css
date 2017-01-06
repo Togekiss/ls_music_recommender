@@ -53,76 +53,84 @@ li {
     top: 0;
     left: 0;
     width:100%;
-    height: 50px;
+    height: 70px;
     background-color: rgba(0,0,0,0.7);
     padding: 10px;
 }
 
+.searchBar {
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+.searchBar input {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #9e9e9e;
+    border-radius: 0;
+    outline: none;
+    color: #cccccc;
+    font-size: 20px;
+    margin: 0 0 10px 0;
+    padding: 0;
+    box-shadow: none;
+    box-sizing: content-box;
+    width: calc(100% - 5rem);
+}
+
+
+.searchBar input:focus {
+    border:none;
+    border-bottom: 1px solid #1DB954;
+
+}
+
+#action-search {
+    border: 0;
+    color: #cccccc;
+    font-style: normal;
+    font-size: inherit;
+    background: none;
+    width: 30px;
+}
+
 .menusection {
-    width: 95%;
-    display: flex;
-    justify-content: space-around;
-    padding-right: 20px;
-    padding-top: 10px;
-}
+    width: 100%;
 
-.menulist li{
-    display:inline-block;
-    background-color: #444;
-}
-
-.menusection a {
-    color: #A0A0A0;
 }
 
 .menusection li {
-    width: 50%;
+    display: inline-block;
+    width: 46%;
     text-align: center;
-    line-height: 30px;
+    margin: auto;
+    font-size: 25px;
+    padding-bottom: 10px;
 }
 
-#underlined {
-    border: 1px solid white;
-    display: block;
-    width: 41%;
-    position: absolute;
+
+.underlined[id="right"] {
+    width: 45%;
+    height: 2px;
+    background-color: #1DB954;
+    margin-left: 50%;
+    transition: margin-left 0.2s;
 }
 
-.left{
-    margin-left: 10px;
-    -webkit-transition: margin-left 0.5s;
-    transition: margin-left 0.5s;
+.underlined[id="left"] {
+    width: 45%;
+    height: 2px;
+    background-color: #1DB954;
+    margin-left: 3%;
+    transition: margin-left 0.2s;
 }
-
-.right{
-    margin-left: 203px;
-    -webkit-transition: margin-left 0.5s;
-    transition: margin-left 0.5s;
-}
-
-.search {
-    background-color: #666;
-}
-
-.logo:before { content:"\266B"; }
-
-.logo {
-    background-color: red;
-}
-
-.listbutton:before { content:"\2261"; }
-
-.listbutton {
-    background-color: orange;
-}
-
 
 
 /* BODY */
 
 
 #topspace {
-    margin-bottom: 80px;
+    margin-bottom: 100px;
 }
 
 h2 {
@@ -132,7 +140,6 @@ h2 {
 
 
 #container {
-    background-color: #282828;
     float:none;
 }
 
@@ -248,7 +255,7 @@ figcaption {
 }
 
 .player .info {
-    margin: 5px 0 0 85px;
+    margin: 5px 0 0 90px;
     height: 35px;
     line-height: 35px;
     overflow: hidden;
@@ -256,14 +263,13 @@ figcaption {
 
 .info h4 {
     float:left;
-    font-size: 14px;
+    font-size: 16px;
     font-style: normal;
-    margin-left: 5px;
     margin-right: 10px;
 }
 
 .info h2 {
-    font-size: 20px;
+    font-size: 16px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -392,4 +398,8 @@ figcaption {
     font-size: 32px;
     -webkit-transition: font-size 0.1s, color 0.1s, top 0.1s, left 0.1s;
     transition: font-size 0.1s, color 0.1s, top 0.1s, left 0.1s;
+}
+
+#bottomspace {
+    margin-top: 80px;
 }

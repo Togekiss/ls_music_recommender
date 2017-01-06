@@ -9,31 +9,29 @@
 	<meta name="author" content="Martina, Rogelio i Vector">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	<link  rel="stylesheet" type="text/css" href="css/materialicons.css">
-	<link rel="stylesheet" type="text/css" href="css/main.css">
 	<link rel="stylesheet" type="text/css" href="css/proxima-nova.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+
+
 </head>
 <body>
 
 <header class="clearfix">
+
 	<nav class="menu">
-		<ul class="menulist">
-			<li><a title="Logo" href="#topspace"><span class="logo"></span></a></li>
-			<li>
-				<form method="post">
-					<label for="search"></label>
-					<input id="search" name="query" placeholder="Buscar">
-					<button id="action-search" type="submit">Buscar</button>
-				</form>
-			</li>
-			<li><a title="List" href=""></a></li>
-		</ul>
+
+		<form class="searchBar" method="post">
+			<button id="action-search" type="submit"><i class="material-icons">search</i></button>
+			<input id="search" name="query" placeholder="Busca música">
+		</form>
 
 		<ul class="menusection">
-			<li><a id="toptracks">Recomendaciones</a></li>
-			<li><a id="results">Resultados</a></li>
+			<li><a id="descubre">Descubre</a></li>
+			<li><a id="listas">Listas</a></li>
 		</ul>
-		<div id="underlined" class="right"></div>
+		<div class="underlined" id="left"></div>
 	</nav>
+
 </header>
 
 <div id="topspace"></div>
@@ -96,12 +94,39 @@
 	</div>
 </div>
 
+<h2>Resultados</h2>
+<div class="resultsRow">
+	<button class="resultsNavButton"><span class="arrowp"></span></button>
+	<ul class="resultsList">
+		<li>
+			<figure id="img5">
+				<div class="imageContainer"><img src="https://i.ytimg.com/vi/cfOa1a8hYP8/hqdefault.jpg" alt="Radiohead - Lotus Flower"></div>
+				<span></span>
+				<figcaption>
+					<h3>Radiohead</h3>
+					<h4>Lotus Flower</h4>
+				</figcaption>
+			</figure>
+		</li>
+		<li>
+			<figure id="img6">
+				<div class="imageContainer"><img src="https://i.ytimg.com/vi/cfOa1a8hYP8/hqdefault.jpg" alt="Radiohead - Lotus Flower"></div>
+				<span></span>
+				<figcaption>
+					<h3>Radiohead</h3>
+					<h4>Lotus Flower</h4>
+				</figcaption>
+			</figure>
+		</li>
+	</ul>
+	<button class="resultsNavButton"><span class="arrown"></span></button>
+</div>
 
 <div class="player">
 	<div class="playerImageContainer"><img src="https://i.scdn.co/image/a725ebab6c05ee5d9d2ff0a43ccc49e6e7f2b6dc"/></div>
 
 	<div class="info">
-		<h4>Premiere</h4><h2>I Need You Back</h2>
+		<h4>Premiere</h4><h4>-</h4><h2>I Need You Back</h2>
 	</div>
 	<div class="playerControl">
 
@@ -110,15 +135,17 @@
 			<a id="play"><i class="material-icons">play_circle_outline</i></a>
 			<a id="skip_next"><i class="material-icons">skip_next</i></a>
 		</div><div class="sdiv">
-			<p id="timer-actual">0:00</p>
-			<div id="slider-actual"></div>
-			<div id="slider"></div>
-			<p id="timer-total">0:30</p>
-		</div>
+		<p id="timer-actual">0:00</p>
+		<div id="slider-actual"></div>
+		<div id="slider"></div>
+		<p id="timer-total">0:30</p>
+	</div>
 
 
 	</div>
 </div>
+
+<div id="bottomspace"></div>
 
 
 <script type="text/javascript" src="js/spotify_api_data.js"></script>

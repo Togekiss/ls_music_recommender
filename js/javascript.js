@@ -52,14 +52,14 @@
 		changeDiv : function changeDiv (event) {
 			event.preventDefault();
 
-			var underlined = document.getElementById('underlined');
+			var underlined = document.getElementsByClassName('underlined')[0];
 
-			if ((event.target.id == "results") && (underlined.className == "left")) {
-				underlined.setAttribute("class", "right");
+			if ((event.target.id == "descubre") && (underlined.id == "right")) {
+				underlined.setAttribute('id', "left");
 			}
 
-			if ((event.target.id == "toptracks") && (underlined.className == "right")) {
-					underlined.setAttribute("class", "left");
+			if ((event.target.id == "listas") && (underlined.id == "left")) {
+					underlined.setAttribute('id', "right");
 			}
 		},
 
@@ -97,7 +97,7 @@
 			//canviem artista
             info.childNodes[1].textContent = figure.childNodes[5].childNodes[1].textContent;
             //canviem titol
-            info.childNodes[2].textContent = figure.childNodes[5].childNodes[3].textContent;
+            info.childNodes[3].textContent = figure.childNodes[5].childNodes[3].textContent;
 
 
 			Listener.songPause(event);
