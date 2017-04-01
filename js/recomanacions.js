@@ -1,22 +1,29 @@
 /**
  * Created by Hector on 30/12/2016.
  */
+var country = "ES";
+var limit_results = 10;
 var song;
 var artist;
 var list_songs;
 var list_artists;
 var array_songs = [];
 var array_artists = [];
-var data_songs;
-var saved_songs;
+var songStruct = {
+  id: '',
+  titulo: '',
+  artista: '',
+  album: ''
+};
+var songNumber = 0;
 var boolean = 1;
 
 var recomendations = {
     getWithSongs : function getWithSongs ([nom_canço]){
-        var url_id = "http://musicovery.com/api/track.php?fct=search&title="+ [nom_canço] +"&format=json";
+        var url_id = "http://musicovery.com/api/V4/track.php?fct=search&title="+ [nom_canço] +"&format=json";
         song = JSON.parse(AJAX.request(url_id));
         var id_song = song.root.tracks.track[0].id;
-        var url_songs = "http://musicovery.com/api/track.php?fct=getsimilartracks&id=" + id_song + "&format=json";
+        var url_songs = "http://musicovery.com/api/V4/track.php?fct=getsimilartracks&id=" + id_song + "&format=json";
         list_songs = JSON.parse(AJAX.request(url_songs));
         array_songs = songsToArray(list_songs);
         return array_songs;
@@ -27,10 +34,10 @@ var recomendations = {
         }
     },
     getWithArtist : function getWithArtist ([nom_artista]){
-        var url_id = "http://musicovery.com/api/artist.php?fct=search&artistname="+ [nom_artista] +"&format=json";
+        var url_id = "http://musicovery.com/api/V4/artist.php?fct=search&artistname="+ [nom_artista] +"&format=json";
         artist = JSON.parse(AJAX.request(url_id));
         var id_artist = artist.root.artists.artist[0].mbid;
-        var url_artists = "http://musicovery.com/api/artist.php?fct=getsimilarartist&artistmbid=" + id_artist + "&format=json";
+        var url_artists = "http://musicovery.com/api/V4/artist.php?fct=getsimilarartist&artistmbid=" + id_artist + "&format=json";
         list_artists = JSON.parse(AJAX.request(url_artists));
         array_artists = artistToArray (list_artists);
         return array_artists;
@@ -42,24 +49,45 @@ var recomendations = {
     }
 }
 var data = {
-    save: function save([nom_canço]){
-        data_songs = JSON.parse(localStorage.getItem(saved_songs));
-        for (var i = 0; i < data_songs.length; i++) {
-         if([nom_canço].localecompare(data_songs[i])=== 0){
-            boolean = 0;
+    save: function save(newSong){
+        boolean = 1;
+
+        if (songNumber > 0) {
+          for (var i = 0; i < songNumber; i++) {
+           songStruct = JSON.parse(localStorage.getItem(i+1));
+           if((songStruct.titulo === newSong.titulo) && (songStruct.artista === newSong.artista)) {
+              boolean = 0;
+           }
          }
-        }
-        if(data_songs.length < 4){
-            data_songs.push([nom_canço]);
-            boolean = 0;
-        }
-        if(boolean === 1){
-            data_songs.shift();
-            data_songs.push([nom_canço]);
-        }
-        localStorage.setItem(saved_songs, JSON.parse(data_songs));
+       }
+
+       if (boolean == 1) {
+         songNumber++;
+         var aux = newSong.titulo.replace(" ", "+");
+         var url = "https://api.spotify.com/v1/search?q=" + aux + "&type=track&market=" + country + "&limit=" + limit_results;
+ 				 var items = JSON.parse(AJAX.request(url));
+
+         for (var i = 0; i < items.tracks.items.length; i++)
+          for (var j = 0; j < items.tracks.items[i].artists.length; j++)
+            if (items.tracks.items[i].artists[j].name === newSong.artista) {
+              songStruct.id = items.tracks.items[i].id;
+              songStruct.titulo = newSong.titulo;
+              songStruct.artista = newSong.artista;
+              songStruct.album = items.tracks.items[i].album.id;
+            }
+         localStorage.setItem(songNumber, JSON.stringify(songStruct));
+       }
     },
-    get: function get() {
-        return JSON.parse(localStorage.getItem(saved_songs));
+    get: function get(number) {
+        return JSON.parse(localStorage.getItem(number));
     }
+}
+
+var AJAX = {
+  request: function request(url){
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", url, false);
+    xhr.send();
+    return xhr.responseText;
+  }
 }
