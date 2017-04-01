@@ -170,11 +170,11 @@ h2 {
     display: inline-block;
 }
 
-.resultsNavButton, .resultsList {
+.resultsNavButton, .recommendationsNavButton, .listNavButton, .resultsList {
     display: inline-block;
 }
 
-.resultsNavButton {
+.resultsNavButton, .recommendationsNavButton, .listNavButton {
     background-color: rgba(180,180,180,0.5);
     border-style: none;
     color: #848484;
