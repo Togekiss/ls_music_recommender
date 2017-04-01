@@ -63,6 +63,10 @@ li {
     margin-bottom: 5px;
 }
 
+#listasContainer .searchBar {
+    margin-bottom: 15px;
+}
+
 .searchBar input {
     background-color: transparent;
     border: none;
@@ -85,13 +89,18 @@ li {
 
 }
 
-#action-search {
+#action-search, #action-add-list, .action-delete-list, .action-add-song, .action-delete-song{
     border: 0;
     color: #cccccc;
     font-style: normal;
     font-size: inherit;
     background: none;
     width: 30px;
+}
+
+.action-delete-list {
+    float: right;
+    margin-right: 10px;
 }
 
 .menusection {
@@ -199,6 +208,7 @@ figure {
     height: 160px;
     overflow: hidden;
     position:relative;
+    z-index: -10;
 }
 
 .imageContainer img {
@@ -209,6 +219,7 @@ figure {
     right: -1000%;
     top: -1000%;
     bottom: -1000%;
+    z-index: inherit;
 }
 
 figcaption {
@@ -221,6 +232,14 @@ figcaption {
     max-height: 150px;
     text-overflow: ellipsis;
     overflow: hidden;
+}
+
+.action-add-song, .action-delete-song {
+    float: right;
+    padding-top: 5px;
+    margin-left: -40px;
+    z-index: 10;
+    background-color: rgba(0,0,0,0.6);
 }
 
 
