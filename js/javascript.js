@@ -5,7 +5,7 @@
 	var firstPlay = true;
 	var itemIndex = [0, 1];
 	var items;
-	var itemsRecommendation;
+	var itemsRecommendation = [];
 	var maxResults;
 
 	var MusicRecommender = {
@@ -13,11 +13,16 @@
 				var url = "https://api.spotify.com/v1/search?q=" + query + "&type=album,track,artist&market=" + country + "&limit=" + limit_results;
 				items = JSON.parse(AJAX.request(url));
 				//var song = recomendations.getWithSongs();
-				itemsRecommendation;
-			//	console.log(array);
+				if (songNumber > 0) {
+					console.log(data.get(songNumber).titulo);
+					var song_list = recomendations.getWithSongs(data.get(songNumber).titulo);
+					var url2;
+					for (var i = 0; i < limit_results; i++) {
+						url2 = "https://api.spotify.com/v1/search?q=" + song_list[i] + "&type=track&market" + country + "&limit=" + limit_results;
+						itemsRecommendation[i] = JSON.parse(AJAX.request(url2)).tracks.items[0];
+					}
+				}
 				maxResults = items.tracks.items.length;
-				//this.getAlbum(array.albums.items[0].id);
-				//this.getArtist(array.artists.items[0].id);
 		},
 
 		getAlbum : function getAlbum (id_album) {
@@ -68,7 +73,7 @@
 
 			MusicRecommender.search(query);
 			Application.replaceResults();
-			//Application.replaceRecommendations();
+			if (songNumber > 0) Application.replaceRecommendations();
 		},
 
 		chargeFooter: function chargeFooter(event) {
@@ -95,9 +100,11 @@
 
 
 			Listener.songPause(event);
-			//CANVIAR
+
 			if (figure.id == "img1") audioObject = new Audio(items.tracks.items[itemIndex[0]].preview_url);
-			else  audioObject = new Audio(items.tracks.items[itemIndex[1]].preview_url);
+			else  if (figure.id == "img2") audioObject = new Audio(items.tracks.items[itemIndex[1]].preview_url);
+			else if (figure.id == "img3") audioObject = new Audio(itemsRecommendation[itemIndex[0]].preview_url);
+			else if (figure.id == "img4") audioObject = new Audio(itemsRecommendation[itemIndex[1]].preview_url);
 		},
 
 		updateSlider: function updateSlider() {
@@ -274,14 +281,14 @@
 			var figure3 = document.getElementById('img3');
 			var figure4 = document.getElementById('img4');
 
-			figure3.childNodes[1].childNodes[0].src = items.tracks.items[itemIndex[0]].album.images[0].url;
-			figure4.childNodes[1].childNodes[0].src = items.tracks.items[itemIndex[1]].album.images[0].url;
+			figure3.childNodes[1].childNodes[0].src = itemsRecommendation[itemIndex[0]].album.images[0].url;
+			figure4.childNodes[1].childNodes[0].src = itemsRecommendation[itemIndex[1]].album.images[0].url;
 
-			figure3.childNodes[5].childNodes[1].textContent = items.tracks.items[itemIndex[0]].artists[0].name;
-			figure4.childNodes[5].childNodes[3].textContent = items.tracks.items[itemIndex[0]].name;
+			figure3.childNodes[5].childNodes[1].textContent = itemsRecommendation[itemIndex[0]].artists[0].name;
+			figure3.childNodes[5].childNodes[3].textContent = itemsRecommendation[itemIndex[0]].name;
 
-			figure3.childNodes[5].childNodes[1].textContent = items.tracks.items[itemIndex[1]].artists[0].name;
-			figure4.childNodes[5].childNodes[3].textContent = items.tracks.items[itemIndex[1]].name;
+			figure4.childNodes[5].childNodes[1].textContent = itemsRecommendation[itemIndex[1]].artists[0].name;
+			figure4.childNodes[5].childNodes[3].textContent = itemsRecommendation[itemIndex[1]].name;
 
 			Listener.addListener(figure3.childNodes[1].childNodes[0], "click", Listener.chargeFooter, false);
 			Listener.addListener(figure4.childNodes[1].childNodes[0], "click", Listener.chargeFooter, false);
