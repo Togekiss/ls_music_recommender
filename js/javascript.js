@@ -1,17 +1,19 @@
 
 (function(){
-	var limit_results = 10;
-	var country = "ES";
+
 	var audioObject = new Audio();
 	var firstPlay = true;
 	var itemIndex = [0, 1];
 	var items;
+	var itemsRecommendation;
 	var maxResults;
 
 	var MusicRecommender = {
 		search : function search (query) {
 				var url = "https://api.spotify.com/v1/search?q=" + query + "&type=album,track,artist&market=" + country + "&limit=" + limit_results;
 				items = JSON.parse(AJAX.request(url));
+				//var song = recomendations.getWithSongs();
+				itemsRecommendation;
 			//	console.log(array);
 				maxResults = items.tracks.items.length;
 				//this.getAlbum(array.albums.items[0].id);
@@ -28,15 +30,6 @@
 			var url = "	https://api.spotify.com/v1/artists/" + id_artist + "/albums?album_type=single,album&market=" + country + "&limit=" + limit_results;
 			var array = JSON.parse(AJAX.request(url));
 			console.log(array);
-		}
-	}
-
-	var AJAX = {
-		request: function request(url){
-			var xhr = new XMLHttpRequest();
-			xhr.open("GET", url, false);
-			xhr.send();
-			return xhr.responseText;
 		}
 	}
 
@@ -75,6 +68,7 @@
 
 			MusicRecommender.search(query);
 			Application.replaceResults();
+			//Application.replaceRecommendations();
 		},
 
 		chargeFooter: function chargeFooter(event) {
@@ -101,6 +95,7 @@
 
 
 			Listener.songPause(event);
+			//CANVIAR
 			if (figure.id == "img1") audioObject = new Audio(items.tracks.items[itemIndex[0]].preview_url);
 			else  audioObject = new Audio(items.tracks.items[itemIndex[1]].preview_url);
 		},
@@ -151,9 +146,20 @@
 
 		songPlay: function songPlay(event) {
 			event.preventDefault();
+			var info = document.getElementsByClassName('info')[0];
+			var songStruct = {
+			  titulo: '',
+			  artista: '',
+			};
 
 			Listener.playClicked = true;
 		  audioObject.play();
+
+			songStruct.artista = info.childNodes[1].textContent;
+			songStruct.titulo = info.childNodes[3].textContent;
+
+			data.save(songStruct);
+
 			slider = setInterval(Listener.updateSlider, 1000);
 			sliderGreen = setInterval(Listener.updateSliderGreen, 1000);
 
@@ -261,6 +267,24 @@
 
 			Listener.addListener(figure1.childNodes[1].childNodes[0], "click", Listener.chargeFooter, false);
 			Listener.addListener(figure2.childNodes[1].childNodes[0], "click", Listener.chargeFooter, false);
+		},
+
+		replaceRecommendations: function replaceRecommendations() {
+
+			var figure3 = document.getElementById('img3');
+			var figure4 = document.getElementById('img4');
+
+			figure3.childNodes[1].childNodes[0].src = items.tracks.items[itemIndex[0]].album.images[0].url;
+			figure4.childNodes[1].childNodes[0].src = items.tracks.items[itemIndex[1]].album.images[0].url;
+
+			figure3.childNodes[5].childNodes[1].textContent = items.tracks.items[itemIndex[0]].artists[0].name;
+			figure4.childNodes[5].childNodes[3].textContent = items.tracks.items[itemIndex[0]].name;
+
+			figure3.childNodes[5].childNodes[1].textContent = items.tracks.items[itemIndex[1]].artists[0].name;
+			figure4.childNodes[5].childNodes[3].textContent = items.tracks.items[itemIndex[1]].name;
+
+			Listener.addListener(figure3.childNodes[1].childNodes[0], "click", Listener.chargeFooter, false);
+			Listener.addListener(figure4.childNodes[1].childNodes[0], "click", Listener.chargeFooter, false);
 		},
 
 		start: function start(){
