@@ -19,19 +19,16 @@ var songNumber = localStorage.length - 2;
 var boolean = 1;
 
 var recomendations = {
-    getWithSongs : function getWithSongs ([nom_canço]){
-        var url_id = "http://musicovery.com/api/V4/track.php?fct=search&title="+ [nom_canço] +"&format=json";
-        song = JSON.parse(AJAX.request(url_id));
-        var id_song = song.root.tracks.track[0].id;
-        var url_songs = "http://musicovery.com/api/V4/track.php?fct=getsimilar&id=" + id_song + "&tracksnumber=" +
-        limit_results + "&listenercountry=" + country + "&format=json";
-        list_songs = JSON.parse(AJAX.request(url_songs));
+    getWithSongs : function getWithSongs (song_name, song_artist){
+        var url = "http://ws.audioscrobbler.com/2.0/?method=track.getsimilar&artist=" + song_artist +
+        "&track=" + song_name + "&limit=" + limit_results + "&api_key=" + lastfm_api_key + "&format=json";
+        list_songs = JSON.parse(AJAX.request(url));
         this.songsToArray(list_songs);
         return array_songs;
     },
     songsToArray : function songsToArray (list_songs){
-        for (var i = 0; i < list_songs.root.tracks.track.length; i++) {
-            array_songs[i] = list_songs.root.tracks.track[i].title;
+        for (var i = 0; i < list_songs.similartracks.track.length; i++) {
+            array_songs[i] = list_songs.similartracks.track[i].name;
         }
     },
     getWithArtist : function getWithArtist ([nom_artista]){

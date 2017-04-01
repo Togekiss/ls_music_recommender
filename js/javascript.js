@@ -3,25 +3,28 @@
 
 	var audioObject = new Audio();
 	var firstPlay = true;
-	var itemIndex = [0, 1];
+	var itemIndexResults = [0, 1];
+	var itemIndexRecommendations = [0, 1];
 	var items;
 	var itemsRecommendation = [];
 	var maxResults;
+	var maxRecommendations;
 
 	var MusicRecommender = {
 		search : function search (query) {
 				var url = "https://api.spotify.com/v1/search?q=" + query + "&type=album,track,artist&market=" + country + "&limit=" + limit_results;
 				items = JSON.parse(AJAX.request(url));
-				//var song = recomendations.getWithSongs();
+
 				if (songNumber > 0) {
-					console.log(data.get(songNumber).titulo);
-					var song_list = recomendations.getWithSongs(data.get(songNumber).titulo);
+					var song_list = recomendations.getWithSongs(data.get(songNumber).titulo, data.get(songNumber).artista);
 					var url2;
-					for (var i = 0; i < limit_results; i++) {
+					for (var i = 0; i < song_list.length; i++) {
 						url2 = "https://api.spotify.com/v1/search?q=" + song_list[i] + "&type=track&market" + country + "&limit=" + limit_results;
 						itemsRecommendation[i] = JSON.parse(AJAX.request(url2)).tracks.items[0];
 					}
+					maxRecommendations = song_list.length;
 				}
+
 				maxResults = items.tracks.items.length;
 		},
 
@@ -100,10 +103,10 @@
 
 			Listener.songPause(event);
 
-			if (figure.id == "img1") audioObject = new Audio(items.tracks.items[itemIndex[0]].preview_url);
-			else  if (figure.id == "img2") audioObject = new Audio(items.tracks.items[itemIndex[1]].preview_url);
-			else if (figure.id == "img3") audioObject = new Audio(itemsRecommendation[itemIndex[0]].preview_url);
-			else if (figure.id == "img4") audioObject = new Audio(itemsRecommendation[itemIndex[1]].preview_url);
+			if (figure.id == "img1") audioObject = new Audio(items.tracks.items[itemIndexResults[0]].preview_url);
+			else  if (figure.id == "img2") audioObject = new Audio(items.tracks.items[itemIndexResults[1]].preview_url);
+			else if (figure.id == "img3") audioObject = new Audio(itemsRecommendation[itemIndexRecommendations[0]].preview_url);
+			else if (figure.id == "img4") audioObject = new Audio(itemsRecommendation[itemIndexRecommendations[1]].preview_url);
 		},
 
 		updateSlider: function updateSlider() {
@@ -242,16 +245,28 @@
 
 		changeRow: function changeRow(event) {
 
-			if ((event.target.childNodes[0].className == "arrown") && (itemIndex[1] < maxResults-1)) {
-				itemIndex[0] = itemIndex[1];
-				itemIndex[1]++;
+			if ((event.target.id == "results1n") && (itemIndexResults[1] < maxResults-1)) {
+				itemIndexResults[0] = itemIndexResults[1];
+				itemIndexResults[1]++;
 				Application.replaceResults();
 			}
 
-			if ((event.target.childNodes[0].className == "arrowp") && (itemIndex[0] > 0)) {
-				itemIndex[1] = itemIndex[0];
-				itemIndex[0]--;
+			if ((event.target.id == "results1p") && (itemIndexResults[0] > 0)) {
+				itemIndexResults[1] = itemIndexResults[0];
+				itemIndexResults[0]--;
 				Application.replaceResults();
+			}
+
+			if ((event.target.id == "recomendaciones1n") && (itemIndexRecommendations[1] < maxRecommendations-1)) {
+				itemIndexRecommendations[0] = itemIndexRecommendations[1];
+				itemIndexRecommendations[1]++;
+				Application.replaceRecommendations();
+			}
+
+			if ((event.target.id == "recomendaciones1p") && (itemIndexRecommendations[0] > 0)) {
+				itemIndexRecommendations[1] = itemIndexRecommendations[0];
+				itemIndexRecommendations[0]--;
+				Application.replaceRecommendations();
 			}
 		}
 	}
@@ -264,14 +279,14 @@
 
 			var ul = document.getElementsByClassName('resultsList');
 
-			figure1.childNodes[1].childNodes[0].src = items.tracks.items[itemIndex[0]].album.images[0].url;
-			figure2.childNodes[1].childNodes[0].src = items.tracks.items[itemIndex[1]].album.images[0].url;
+			figure1.childNodes[1].childNodes[0].src = items.tracks.items[itemIndexResults[0]].album.images[0].url;
+			figure2.childNodes[1].childNodes[0].src = items.tracks.items[itemIndexResults[1]].album.images[0].url;
 
-			figure1.childNodes[5].childNodes[1].textContent = items.tracks.items[itemIndex[0]].artists[0].name;
-			figure1.childNodes[5].childNodes[3].textContent = items.tracks.items[itemIndex[0]].name;
+			figure1.childNodes[5].childNodes[1].textContent = items.tracks.items[itemIndexResults[0]].artists[0].name;
+			figure1.childNodes[5].childNodes[3].textContent = items.tracks.items[itemIndexResults[0]].name;
 
-			figure2.childNodes[5].childNodes[1].textContent = items.tracks.items[itemIndex[1]].artists[0].name;
-			figure2.childNodes[5].childNodes[3].textContent = items.tracks.items[itemIndex[1]].name;
+			figure2.childNodes[5].childNodes[1].textContent = items.tracks.items[itemIndexResults[1]].artists[0].name;
+			figure2.childNodes[5].childNodes[3].textContent = items.tracks.items[itemIndexResults[1]].name;
 
 			Listener.addListener(ul[0].childNodes[1], "click", Listener.chargeFooter, false);
 			Listener.addListener(ul[0].childNodes[3], "click", Listener.chargeFooter, false);
@@ -282,17 +297,19 @@
 			var figure3 = document.getElementById('img3');
 			var figure4 = document.getElementById('img4');
 
-			figure3.childNodes[1].childNodes[0].src = itemsRecommendation[itemIndex[0]].album.images[0].url;
-			figure4.childNodes[1].childNodes[0].src = itemsRecommendation[itemIndex[1]].album.images[0].url;
+			var ul = document.getElementsByClassName('resultsList');
 
-			figure3.childNodes[5].childNodes[1].textContent = itemsRecommendation[itemIndex[0]].artists[0].name;
-			figure3.childNodes[5].childNodes[3].textContent = itemsRecommendation[itemIndex[0]].name;
+			figure3.childNodes[1].childNodes[0].src = itemsRecommendation[itemIndexRecommendations[0]].album.images[0].url;
+			figure4.childNodes[1].childNodes[0].src = itemsRecommendation[itemIndexRecommendations[1]].album.images[0].url;
 
-			figure4.childNodes[5].childNodes[1].textContent = itemsRecommendation[itemIndex[1]].artists[0].name;
-			figure4.childNodes[5].childNodes[3].textContent = itemsRecommendation[itemIndex[1]].name;
+			figure3.childNodes[5].childNodes[1].textContent = itemsRecommendation[itemIndexRecommendations[0]].artists[0].name;
+			figure3.childNodes[5].childNodes[3].textContent = itemsRecommendation[itemIndexRecommendations[0]].name;
 
-			Listener.addListener(figure3.childNodes[1].childNodes[0], "click", Listener.chargeFooter, false);
-			Listener.addListener(figure4.childNodes[1].childNodes[0], "click", Listener.chargeFooter, false);
+			figure4.childNodes[5].childNodes[1].textContent = itemsRecommendation[itemIndexRecommendations[1]].artists[0].name;
+			figure4.childNodes[5].childNodes[3].textContent = itemsRecommendation[itemIndexRecommendations[1]].name;
+
+			Listener.addListener(ul[1].childNodes[1], "click", Listener.chargeFooter, false);
+			Listener.addListener(ul[1].childNodes[3], "click", Listener.chargeFooter, false);
 		},
 
 		start: function start(){
