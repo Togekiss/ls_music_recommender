@@ -1,7 +1,7 @@
 /**
  * Created by Hector on 30/12/2016.
  */
-var country = "ES";
+var country = "es";
 var limit_results = 10;
 var song;
 var artist;
@@ -15,7 +15,7 @@ var songStruct = {
   artista: '',
   album: ''
 };
-var songNumber = 0;
+var songNumber = localStorage.length - 2;
 var boolean = 1;
 
 var recomendations = {
@@ -23,14 +23,15 @@ var recomendations = {
         var url_id = "http://musicovery.com/api/V4/track.php?fct=search&title="+ [nom_canço] +"&format=json";
         song = JSON.parse(AJAX.request(url_id));
         var id_song = song.root.tracks.track[0].id;
-        var url_songs = "http://musicovery.com/api/V4/track.php?fct=getsimilartracks&id=" + id_song + "&format=json";
+        var url_songs = "http://musicovery.com/api/V4/track.php?fct=getsimilar&id=" + id_song + "&tracksnumber=" +
+        limit_results + "&listenercountry=" + country + "&format=json";
         list_songs = JSON.parse(AJAX.request(url_songs));
-        array_songs = songsToArray(list_songs);
+        this.songsToArray(list_songs);
         return array_songs;
     },
     songsToArray : function songsToArray (list_songs){
-        for (var i = 0; i < list_songs.length; i++) {
-            array_songs.push(list_songs.root.tracks.track[i].title);
+        for (var i = 0; i < list_songs.root.tracks.track.length; i++) {
+            array_songs[i] = list_songs.root.tracks.track[i].title;
         }
     },
     getWithArtist : function getWithArtist ([nom_artista]){
@@ -39,7 +40,7 @@ var recomendations = {
         var id_artist = artist.root.artists.artist[0].mbid;
         var url_artists = "http://musicovery.com/api/V4/artist.php?fct=getsimilarartist&artistmbid=" + id_artist + "&format=json";
         list_artists = JSON.parse(AJAX.request(url_artists));
-        array_artists = artistToArray (list_artists);
+        this.artistToArray (list_artists);
         return array_artists;
     },
     artistToArray : function artistToArray (list_songs){
