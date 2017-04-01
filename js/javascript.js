@@ -85,9 +85,8 @@
 				Listener.playClicked = false;
 			}
 
-
-            var figure = event.target.parentNode.parentNode;
-
+    //  var figure = event.target.parentNode.parentNode;
+			var figure = event.target.childNodes[3];
 			//canviem imatge
 			var img = document.getElementsByClassName('playerImageContainer')[0];
             img.childNodes[0].src = figure.childNodes[1].childNodes[0].src;
@@ -263,6 +262,8 @@
 			var figure1 = document.getElementById('img1');
 			var figure2 = document.getElementById('img2');
 
+			var ul = document.getElementsByClassName('resultsList');
+
 			figure1.childNodes[1].childNodes[0].src = items.tracks.items[itemIndex[0]].album.images[0].url;
 			figure2.childNodes[1].childNodes[0].src = items.tracks.items[itemIndex[1]].album.images[0].url;
 
@@ -272,8 +273,8 @@
 			figure2.childNodes[5].childNodes[1].textContent = items.tracks.items[itemIndex[1]].artists[0].name;
 			figure2.childNodes[5].childNodes[3].textContent = items.tracks.items[itemIndex[1]].name;
 
-			Listener.addListener(figure1.childNodes[1].childNodes[0], "click", Listener.chargeFooter, false);
-			Listener.addListener(figure2.childNodes[1].childNodes[0], "click", Listener.chargeFooter, false);
+			Listener.addListener(ul[0].childNodes[1], "click", Listener.chargeFooter, false);
+			Listener.addListener(ul[0].childNodes[3], "click", Listener.chargeFooter, false);
 		},
 
 		replaceRecommendations: function replaceRecommendations() {
@@ -309,11 +310,13 @@
 			var start = document.getElementById('play');
 			Listener.addListener (start, 'click', Listener.songPlay, false);
 
-			var navButtons = document.getElementsByClassName('resultsNavButton');
-			Listener.addListener (navButtons[0], 'click', Listener.changeRow, false);
-			Listener.addListener (navButtons[1], 'click', Listener.changeRow, false);
-			Listener.addListener (navButtons[2], 'click', Listener.changeRow, false);
-			Listener.addListener (navButtons[3], 'click', Listener.changeRow, false);
+			var resultsnavButtons = document.getElementsByClassName('resultsNavButton');
+			var recommendationsnavButtons = document.getElementsByClassName('recommendationsNavButton');
+
+			Listener.addListener (resultsnavButtons[0], 'click', Listener.changeRow, false);
+			Listener.addListener (resultsnavButtons[1], 'click', Listener.changeRow, false);
+			Listener.addListener (recommendationsnavButtons[0], 'click', Listener.changeRow, false);
+			Listener.addListener (recommendationsnavButtons[1], 'click', Listener.changeRow, false);
 		}
 	}
 
