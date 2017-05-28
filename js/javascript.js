@@ -181,6 +181,7 @@
 			}
 
 			MusicRecommender.search(query);
+			document.getElementById("resultsDiv").style.display = "block";
 			Application.replaceResults();
 			if (songNumber > 0) Application.replaceRecommendations();
 		},
