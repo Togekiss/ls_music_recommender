@@ -336,7 +336,7 @@
 
 			//canviem imatge
 			var img = document.getElementsByClassName('playerImageContainer')[0];
-			if (playList < 2) {
+			if (playList <= 2) {
 	      img.childNodes[0].src = itemsplayList[idPlaying].album.images[0].url;
 
 				var info = document.getElementsByClassName('info')[0];
