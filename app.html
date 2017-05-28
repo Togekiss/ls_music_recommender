@@ -6,7 +6,7 @@
 
 	<title>LS Music Recommender</title>
 	<meta name="description" content="LaSalle Music Recommender">
-	<meta name="author" content="Martina, Rogelio i Vector">
+	<meta name="author" content="Marta, Roger i Hector">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	<link  rel="stylesheet" type="text/css" href="css/materialicons.css">
 	<link rel="stylesheet" type="text/css" href="css/proxima-nova.css">
@@ -17,7 +17,7 @@
 <header class="clearfix">
 
 	<nav class="menu">
-
+		<a id="logo" href="#topspace"><i class="material-icons">library_music</i></a>
 		<form class="searchBar" method="post">
 			<button id="action-search" type="submit"><i class="material-icons">search</i></button>
 			<input id="search" name="query" placeholder="Busca música">
@@ -35,8 +35,9 @@
 <div id="topspace"></div>
 
 <div id="descubreContainer" class="clearfix">
-	<h2>Resultados</h2>
+
 	<div id="resultsDiv" class="resultsRow">
+		<h2>Resultados</h2>
 		<button class="resultsNavButton" id="results1p"><span class="arrowp"></span></button>
 		<ul class="resultsList">
 			<li>
@@ -65,8 +66,9 @@
 		<button class="resultsNavButton" id="results1n"><span class="arrown"></span></button>
 	</div>
 
-	<h2>Recomendaciones</h2>
+
 	<div id="recomendacionesDiv" class="resultsRow">
+		<h2>Recomendaciones</h2>
 		<button class="recommendationsNavButton" id="recomendaciones1p"><span class="arrowp"></span></button>
 		<ul class="resultsList">
 			<li>
@@ -103,8 +105,9 @@
 		<button id="action-add-list" type="submit"><i class="material-icons">add</i></button>
 	</form>
 
-	<h2>Tu Lista <button class="action-delete-list"><i class="material-icons">delete</i></button></h2>
+
 	<div id="listaDiv" class="resultsRow">
+		<h2>Tu Lista <button class="action-delete-list"><i class="material-icons">delete</i></button></h2>
 		<button class="listNavButton" id="list1p"><span class="arrowp"></span></button>
 		<ul class="resultsList">
 			<li>
