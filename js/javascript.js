@@ -164,11 +164,13 @@
 			if ((event.target.id == "descubre") && (underlined.id == "right")) {
 				underlined.setAttribute('id', "left");
 				document.getElementById("descubreContainer").style.display = "block";
+				document.getElementById('listContainer').style.display = "none";
 			}
 
 			if ((event.target.id == "listas") && (underlined.id == "left")) {
 					underlined.setAttribute('id', "right");
 					document.getElementById("descubreContainer").style.display = "none";
+					document.getElementById('listContainer').style.display = "block";
 			}
 		},
 
@@ -533,6 +535,19 @@
 			Application.replacePlayList();
 		},
 
+		addPlayList: function addPlayList(event) {
+			event.preventDefault();
+
+			var playListName = event.target.parentNode.parentNode.childNodes[1].value;
+
+			if (playListName) {
+				event.target.parentNode.parentNode.childNodes[1].value = "";
+				Adder.addPlayList(itemsplayList, maxPlayList, playListName);
+			}else {
+				alert("You must insert a playlist name!");
+			}
+		},
+
 		removeList: function removeList(event) {
 			event.preventDefault();
 
@@ -646,6 +661,7 @@
 		},
 
 		start: function start(){
+			Adder.init();
 
 			var button = document.getElementById('action-search');
 			Listener.addListener (button, 'click', Listener.eventSearch, false);
@@ -669,6 +685,7 @@
 			document.getElementById('img9').parentNode.childNodes[1].style.display = "none";
 			document.getElementById('img10').style.display = "none";
 			document.getElementById('img10').parentNode.childNodes[1].style.display = "none";
+			document.getElementById('listContainer').style.display = "none";
 
 			Listener.addListener (resultsnavButtons[0], 'click', Listener.changeRow, false);
 			Listener.addListener (resultsnavButtons[1], 'click', Listener.changeRow, false);
@@ -684,7 +701,7 @@
 			Listener.addListener (removeButtons[0], 'click', Listener.removeSong, true);
 			Listener.addListener (removeButtons[1], 'click', Listener.removeSong, true);
 			Listener.addListener (document.getElementsByClassName('action-delete-list')[0], 'click', Listener.removeList, false);
-			Listener.addListener (document.getElementById('action-add-list'), 'click', Adder.addPlayList, false);
+			Listener.addListener (document.getElementById('action-add-list'), 'click', Listener.addPlayList, false);
 
 			if (songNumber == 0) MusicRecommender.chargePopular();
 			else MusicRecommender.chargeRecommendations();

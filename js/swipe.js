@@ -27,11 +27,13 @@ function handleTouchMove(evt) {
           if (underlined.id == "left") {
             underlined.setAttribute('id', "right");
             document.getElementById("descubreContainer").style.display = "none";
+            document.getElementById('listContainer').style.display = "block";
           }
         } else {
           if (underlined.id == "right") {
             underlined.setAttribute('id', "left");
             document.getElementById("descubreContainer").style.display = "block";
+            document.getElementById('listContainer').style.display = "none";
           }
         }
     }
