@@ -393,14 +393,13 @@
 			var timer = document.getElementById('timer-actual');
 			var time = percentage * 30;
 			time = Math.round(time);
-			var width = percentage * 100;
+			var width = percentage * 37;
 
 			audioObject.currentTime = time;
 
 			if (time < 10) timer.textContent = "0:0" + time.toString();
 			else timer.textContent = "0:" + time.toString();
 			sliderActual.style.width = width.toString() + "%";
-			console.log(width);
 		},
 
 		songPlay: function songPlay(event) {
@@ -750,7 +749,8 @@
 			Listener.addListener (button, 'click', Listener.eventSearch, false);
 
 			var sliderActual = document.getElementById('slider');
-			Listener.addListener (sliderActual, 'click', Listener.clickSlider , true);
+			Listener.addListener (sliderActual, 'click', Listener.clickSlider , false);
+			Listener.addListener (document.getElementById('slider-actual'), 'click', Listener.clickSlider , false);
 
 			var menusection = document.getElementsByClassName('menusection')[0];
 			Listener.addListener (menusection.childNodes[3], 'click', Listener.changeDiv, true);
