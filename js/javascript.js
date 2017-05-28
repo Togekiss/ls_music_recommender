@@ -684,6 +684,7 @@
 			Listener.addListener (removeButtons[0], 'click', Listener.removeSong, true);
 			Listener.addListener (removeButtons[1], 'click', Listener.removeSong, true);
 			Listener.addListener (document.getElementsByClassName('action-delete-list')[0], 'click', Listener.removeList, false);
+			Listener.addListener (document.getElementById('action-add-list'), 'click', Adder.addPlayList, false);
 
 			if (songNumber == 0) MusicRecommender.chargePopular();
 			else MusicRecommender.chargeRecommendations();

@@ -97,46 +97,46 @@
 		<button class="recommendationsNavButton" id="recomendaciones1n"><span class="arrown"></span></button>
 	</div>
 
-	<div class="clearfix">
+	<div id="listasContainer" class="clearfix">
 		<form align="center" class="searchBar" method="post">
 			<input id="add-list" name="query" placeholder="Nueva lista">
 			<button id="action-add-list" type="submit"><i class="material-icons">add</i></button>
 		</form>
+
+		<div id="listaDiv" class="resultsRow">
+			<h2>Nueva Lista <button class="action-delete-list"><i class="material-icons">delete</i></button></h2>
+			<button class="listNavButton" id="list1p"><span class="arrowp"></span></button>
+			<ul class="resultsList">
+				<li>
+					<button class="action-delete-song" id="delete-img9"><i class="material-icons">remove</i></button>
+					<figure id="img9">
+						<div class="imageContainer"><img src="https://i.ytimg.com/vi/cfOa1a8hYP8/hqdefault.jpg" alt="Radiohead - Lotus Flower"></div>
+						<span></span>
+						<figcaption>
+							<h3>Radiohead</h3>
+							<h4>Lotus Flower</h4>
+						</figcaption>
+					</figure>
+				</li>
+				<li>
+					<button class="action-delete-song" id="delete-img10"><i class="material-icons">remove</i></button>
+					<figure id="img10">
+						<div class="imageContainer"><img src="https://i.ytimg.com/vi/cfOa1a8hYP8/hqdefault.jpg" alt="Radiohead - Lotus Flower"></div>
+						<span></span>
+						<figcaption>
+							<h3>Radiohead</h3>
+							<h4>Lotus Flower</h4>
+						</figcaption>
+					</figure>
+				</li>
+			</ul>
+			<button class="listNavButton" id="list1n"><span class="arrown"></span></button>
+		</div>
 	</div>
 </div>
 
 <div id="listasContainer" class="clearfix">
-
-	<div id="listaDiv" class="resultsRow">
-		<h2>Nueva Lista <button class="action-delete-list"><i class="material-icons">delete</i></button></h2>
-		<button class="listNavButton" id="list1p"><span class="arrowp"></span></button>
-		<ul class="resultsList">
-			<li>
-				<button class="action-delete-song" id="delete-img9"><i class="material-icons">remove</i></button>
-				<figure id="img9">
-					<div class="imageContainer"><img src="https://i.ytimg.com/vi/cfOa1a8hYP8/hqdefault.jpg" alt="Radiohead - Lotus Flower"></div>
-					<span></span>
-					<figcaption>
-						<h3>Radiohead</h3>
-						<h4>Lotus Flower</h4>
-					</figcaption>
-				</figure>
-			</li>
-			<li>
-				<button class="action-delete-song" id="delete-img10"><i class="material-icons">remove</i></button>
-				<figure id="img10">
-					<div class="imageContainer"><img src="https://i.ytimg.com/vi/cfOa1a8hYP8/hqdefault.jpg" alt="Radiohead - Lotus Flower"></div>
-					<span></span>
-					<figcaption>
-						<h3>Radiohead</h3>
-						<h4>Lotus Flower</h4>
-					</figcaption>
-				</figure>
-			</li>
-		</ul>
-		<button class="listNavButton" id="list1n"><span class="arrown"></span></button>
-	</div>
-
+		<h2 id="lists">Tus Listas</h2>
 </div>
 
 
@@ -169,6 +169,7 @@
 <script type="text/javascript" src="js/spotify_api_data.js"></script>
 <script type="text/javascript" src="js/swipe.js"></script>
 <script type="text/javascript" src="js/recomanacions.js"></script>
+<script type="text/javascript" src="js/playlist.js"></script>
 <script type="text/javascript" src="js/javascript.js"></script>
 
 </body>
