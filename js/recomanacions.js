@@ -11,9 +11,12 @@ var songStruct = {
   id: '',
   titulo: '',
   artista: '',
-  album: ''
+  album: '',
+  playlist: '',
+  playlistname: ''
 };
 var songNumber = localStorage.length;
+var lastSong = 0;
 var boolean = 1;
 
 var recomendations = {
@@ -46,20 +49,20 @@ var recomendations = {
 }
 
 var data = {
-    save: function save(newSong){
-        boolean = 1;
+    init : function init () {
+      var num = 0;
+      if (songNumber > 0) {
+        for (var i = 0; i < songNumber; i++) {
+         songStruct = JSON.parse(localStorage.getItem(i+1));
+         if(songStruct.playlist == "null") lastSong = i + 1;
+        }
+      }
 
-        if (songNumber > 0) {
-          for (var i = 0; i < songNumber; i++) {
-           songStruct = JSON.parse(localStorage.getItem(i+1));
-           if((songStruct.titulo === newSong.titulo) && (songStruct.artista === newSong.artista)) {
-              boolean = 0;
-           }
-         }
-       }
+    },
+    savePlaylist: function savePlaylist(newSong, playListNum, playListName, songNum){
 
-       if (boolean == 1) {
          songNumber++;
+
          var aux = newSong.titulo.replace(" ", "+");
          var url = "https://api.spotify.com/v1/search?q=" + aux + "&type=track&market=" + country + "&limit=" + limit_results;
  				 var items = JSON.parse(AJAX.request(url));
@@ -71,8 +74,56 @@ var data = {
               songStruct.titulo = newSong.titulo;
               songStruct.artista = newSong.artista;
               songStruct.album = items.tracks.items[i].album.id;
+              songStruct.playlist = playListNum;
+              songStruct.playlistname = playListName;
+
             }
-         localStorage.setItem(songNumber, JSON.stringify(songStruct));
+         localStorage.setItem((playListNum + 1) * 100 + songNum, JSON.stringify(songStruct));
+
+    },
+
+    removeplaylist: function removeplaylist(playListNum, playListLength){
+        var num = songNumber;
+
+         for (var i = 0; i < playListLength; i++) {
+          songStruct = JSON.parse(localStorage.getItem((playListNum + 1) * 100 + i));
+          if(songStruct.playlist == playListNum) {
+            songNumber--;
+            localStorage.removeItem((playListNum + 1) * 100 + i);
+          }
+         }
+    },
+
+    save: function save(newSong){
+        boolean = 1;
+
+        if (lastSong > 0) {
+          for (var i = 0; i < lastSong; i++) {
+           songStruct = JSON.parse(localStorage.getItem(i+1));
+           if((songStruct.titulo == newSong.titulo) && (songStruct.artista == newSong.artista) && (songStruct.playlist == "null")) {
+              boolean = 0;
+           }
+          }
+        }
+
+       if (boolean == 1) {
+         songNumber++;
+         lastSong++;
+         var aux = newSong.titulo.replace(" ", "+");
+         var url = "https://api.spotify.com/v1/search?q=" + aux + "&type=track&market=" + country + "&limit=" + limit_results;
+ 				 var items = JSON.parse(AJAX.request(url));
+
+         for (var i = 0; i < items.tracks.items.length; i++)
+          for (var j = 0; j < items.tracks.items[i].artists.length; j++)
+            if (items.tracks.items[i].artists[j].name === newSong.artista) {
+              songStruct.id = items.tracks.items[i].id;
+              songStruct.titulo = newSong.titulo;
+              songStruct.artista = newSong.artista;
+              songStruct.album = items.tracks.items[i].album.id;
+              songStruct.playlist = "null";
+              songStruct.playlistname = "null";
+            }
+         localStorage.setItem(lastSong, JSON.stringify(songStruct));
        }
     },
     get: function get(number) {

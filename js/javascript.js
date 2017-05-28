@@ -20,8 +20,8 @@
 				var url = "https://api.spotify.com/v1/search?q=" + query + "&type=album,track,artist&market=" + country + "&limit=" + limit_results;
 				items = JSON.parse(AJAX.request(url));
 
-				if (songNumber > 0) {
-					var song_list = recomendations.getWithSongs(data.get(songNumber).titulo, data.get(songNumber).artista);
+				if (lastSong > 0) {
+					var song_list = recomendations.getWithSongs(data.get(lastSong).titulo, data.get(lastSong).artista);
 					var url2;
 					for (var i = 0; i < song_list.length; i++) {
 						url2 = "https://api.spotify.com/v1/search?q=" + song_list[i] + "&type=track&market" + country + "&limit=" + limit_results;
@@ -60,7 +60,7 @@
 		},
 
 		chargeRecommendations : function chargeRecommendations () {
-			var song_list = recomendations.getWithSongs(data.get(songNumber).titulo, data.get(songNumber).artista);
+			var song_list = recomendations.getWithSongs(data.get(lastSong).titulo, data.get(lastSong).artista);
 			var url2;
 			for (var i = 0; i < song_list.length; i++) {
 				url2 = "https://api.spotify.com/v1/search?q=" + song_list[i] + "&type=track&market" + country + "&limit=" + limit_results;
@@ -187,7 +187,7 @@
 			MusicRecommender.search(query);
 			document.getElementById("resultsDiv").style.display = "block";
 			Application.replaceResults();
-			if (songNumber > 0) Application.replaceRecommendations();
+			if (lastSong > 0) Application.replaceRecommendations();
 		},
 
 		chargeFooter: function chargeFooter(event) {
@@ -260,8 +260,9 @@
 			event.preventDefault();
 
 			var figure = event.target.childNodes[3];
+			var figure2 = event.target.childNodes[0];
 
-			if (figure) {
+			if (figure || figure2) {
 				if (Listener.playClicked) {
 					clearInterval(slider);
 					clearInterval(sliderGreen);
@@ -272,22 +273,51 @@
 
 				//canviem imatge
 				var img = document.getElementsByClassName('playerImageContainer')[0];
-	      img.childNodes[0].src = figure.childNodes[1].childNodes[0].src;
 
-				var info = document.getElementsByClassName('info')[0];
-				//canviem artista
-	      info.childNodes[1].textContent = figure.childNodes[5].childNodes[1].textContent;
-	      //canviem titol
-	      info.childNodes[3].textContent = figure.childNodes[5].childNodes[3].textContent;
+			  if (figure) {
+					img.childNodes[0].src = figure.childNodes[1].childNodes[0].src;
 
-				if (figure.id == "img9") {
-					audioObject = new Audio(itemsplayList[itemIndexPlayList[0]].preview_url);
-					idPlaying = itemIndexPlayList[0];
+					var info = document.getElementsByClassName('info')[0];
+					//canviem artista
+		      info.childNodes[1].textContent = figure.childNodes[5].childNodes[1].textContent;
+		      //canviem titol
+		      info.childNodes[3].textContent = figure.childNodes[5].childNodes[3].textContent;
+
+					if (figure.id == "img9") {
+						audioObject = new Audio(itemsplayList[itemIndexPlayList[0]].preview_url);
+						idPlaying = itemIndexPlayList[0];
+					}
+					if (figure.id == "img10") {
+						audioObject = new Audio(itemsplayList[itemIndexPlayList[1]].preview_url);
+						idPlaying = itemIndexPlayList[1];
+					}
 				}
-				if (figure.id == "img10") {
-					audioObject = new Audio(itemsplayList[itemIndexPlayList[1]].preview_url);
-					idPlaying = itemIndexPlayList[1];
+
+				if (figure2.childNodes.length != 0) {
+
+					img.childNodes[0].src = figure2.childNodes[0].childNodes[0].src;
+
+					var info = document.getElementsByClassName('info')[0];
+					//canviem artista
+		      info.childNodes[1].textContent = figure2.childNodes[2].childNodes[0].textContent;
+		      //canviem titol
+		      info.childNodes[3].textContent = figure2.childNodes[2].childNodes[1].textContent;
+
+					for (var i = 0; i < playListLength; i++) {
+						if (figure2.id == "img" + i + "4") {
+							audioObject = new Audio(playListItem[i][playListIndex[i][0]].preview_url);
+							idPlaying = playListIndex[i][0];
+							playList = i;
+						}
+
+						if (figure2.id == "img" + i + "5") {
+							audioObject = new Audio(playListItem[i][playListIndex[i][1]].preview_url);
+							idPlaying = playListIndex[i][1];
+							playList = i;
+						}
+					}
 				}
+
 				Listener.songPlay("click");
 			}
 		},
@@ -306,15 +336,27 @@
 
 			//canviem imatge
 			var img = document.getElementsByClassName('playerImageContainer')[0];
-      img.childNodes[0].src = itemsplayList[idPlaying].album.images[0].url;
+			if (playList < 2) {
+	      img.childNodes[0].src = itemsplayList[idPlaying].album.images[0].url;
 
-			var info = document.getElementsByClassName('info')[0];
-			//canviem artista
-      info.childNodes[1].textContent = itemsplayList[idPlaying].artists[0].name;
-      //canviem titol
-      info.childNodes[3].textContent = itemsplayList[idPlaying].name;
+				var info = document.getElementsByClassName('info')[0];
+				//canviem artista
+	      info.childNodes[1].textContent = itemsplayList[idPlaying].artists[0].name;
+	      //canviem titol
+	      info.childNodes[3].textContent = itemsplayList[idPlaying].name;
 
-			audioObject = new Audio(itemsplayList[idPlaying].preview_url);
+				audioObject = new Audio(itemsplayList[idPlaying].preview_url);
+			}else {
+				img.childNodes[0].src = itemsplayList[idPlaying].album.images[0].url;
+
+				var info = document.getElementsByClassName('info')[0];
+				//canviem artista
+				info.childNodes[1].textContent = playListItem[playList][idPlaying].artists[0].name;
+				//canviem titol
+				info.childNodes[3].textContent = playListItem[playList][idPlaying].name;
+
+				audioObject = new Audio(playListItem[playList][idPlaying].preview_url);
+			}
 		},
 
 		updateSlider: function updateSlider() {
@@ -350,6 +392,7 @@
 			var sliderActual = document.getElementById('slider-actual');
 			var timer = document.getElementById('timer-actual');
 			var time = percentage * 30;
+			time = Math.round(time);
 			var width = percentage * 100;
 
 			audioObject.currentTime = time;
@@ -358,7 +401,6 @@
 			else timer.textContent = "0:" + time.toString();
 			sliderActual.style.width = width.toString() + "%";
 			console.log(width);
-			console.log(percentage);
 		},
 
 		songPlay: function songPlay(event) {
@@ -425,6 +467,15 @@
 					//MusicRecommender.removePlayListSong(0);
 					idPlaying++;
 					if (idPlaying < maxPlayList-1) {
+						this.changeFooter();
+						this.songPlay("click");
+					} else {
+						playList = 0;
+						idPlaying = 0;
+					}
+			}else if (playList > 2) {
+					idPlaying++;
+					if (idPlaying < maxPlayLists[playList]-1) {
 						this.changeFooter();
 						this.songPlay("click");
 					} else {
@@ -502,6 +553,22 @@
 				if (itemIndexPlayList[1] < maxPlayList) figure.parentNode.removeAttribute("class");
 				Application.replacePlayList();
 			}
+
+			for (var i = 0; i < nameArrow.length; i++) {
+				if ((event.target.id == "playlist"+ i +"n") && (playListIndex[i][1] < maxPlayLists[i]-1)) {
+					playListIndex[i][0] = playListIndex[i][1];
+					playListIndex[i][1]++;
+					Adder.replacePlayList(i);
+				}
+
+				if ((event.target.id == "playlist"+ i +"p") && (playListIndex[i][0] > 0)) {
+					playListIndex[i][1] = playListIndex[i][0];
+					playListIndex[i][0]--;
+					var figure = document.getElementById('img10');
+					if (playListIndex[i][1] < maxPlayLists) figure.parentNode.removeAttribute("class");
+					Adder.replacePlayList(i);
+				}
+			}
 		},
 
 		addSong: function addSong(event) {
@@ -540,9 +607,19 @@
 
 			var playListName = event.target.parentNode.parentNode.childNodes[1].value;
 
-			if (playListName) {
+			if (maxPlayList != 0 && playListName) {
 				event.target.parentNode.parentNode.childNodes[1].value = "";
 				Adder.addPlayList(itemsplayList, maxPlayList, playListName);
+
+				var listnavButtons = document.getElementsByClassName('listNavButton');
+				var deleteList = document.getElementsByClassName('action-delete-list');
+				var ul = document.getElementsByClassName('resultsList');
+
+				for (var i = 0; i < listnavButtons.length; i++) Listener.addListener (listnavButtons[i], 'click', Listener.changeRow, false);
+				for (var i = 0; i < deleteList.length; i++) Listener.addListener (deleteList[i], 'click', Listener.removeList, false);
+
+				Listener.addListener(ul[2 + playListLength].childNodes[0], "click", Listener.playListClick, false);
+				Listener.addListener(ul[2 + playListLength].childNodes[1], "click", Listener.playListClick, false);
 			}else {
 				alert("You must insert a playlist name!");
 			}
@@ -550,6 +627,10 @@
 
 		removeList: function removeList(event) {
 			event.preventDefault();
+
+			var parent = event.target.parentNode.parentNode.parentNode.parentNode;
+
+			for (var i = 0; i < 200; i++) if (parent.id == "playlist" + i) Adder.removePlayList(i);
 
 			document.getElementById('img9').style.display = "none";
 			document.getElementById('img9').parentNode.childNodes[1].style.display = "none";
@@ -562,6 +643,7 @@
 			playList = 0;
 			Application.replacePlayList();
 			Listener.songPause("click");
+
 		},
 
 		removeSong: function removeSong(event) {
@@ -662,6 +744,7 @@
 
 		start: function start(){
 			Adder.init();
+			data.init();
 
 			var button = document.getElementById('action-search');
 			Listener.addListener (button, 'click', Listener.eventSearch, false);
@@ -691,8 +774,7 @@
 			Listener.addListener (resultsnavButtons[1], 'click', Listener.changeRow, false);
 			Listener.addListener (recommendationsnavButtons[0], 'click', Listener.changeRow, false);
 			Listener.addListener (recommendationsnavButtons[1], 'click', Listener.changeRow, false);
-			Listener.addListener (listnavButtons[0], 'click', Listener.changeRow, false);
-			Listener.addListener (listnavButtons[1], 'click', Listener.changeRow, false);
+			for (var i = 0; i < listnavButtons.length; i++) Listener.addListener (listnavButtons[i], 'click', Listener.changeRow, false);
 
 			Listener.addListener (addButtons[0], 'click', Listener.addSong, false);
 			Listener.addListener (addButtons[1], 'click', Listener.addSong, false);
@@ -703,7 +785,7 @@
 			Listener.addListener (document.getElementsByClassName('action-delete-list')[0], 'click', Listener.removeList, false);
 			Listener.addListener (document.getElementById('action-add-list'), 'click', Listener.addPlayList, false);
 
-			if (songNumber == 0) MusicRecommender.chargePopular();
+			if (lastSong == 0) MusicRecommender.chargePopular();
 			else MusicRecommender.chargeRecommendations();
 			Application.replaceRecommendations();
 		}
