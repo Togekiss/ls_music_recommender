@@ -79,14 +79,18 @@ li {
     padding: 0;
     box-shadow: none;
     box-sizing: content-box;
-    width: calc(100% - 5rem);
+    width: calc(100% - 7rem);
 }
 
 
 .searchBar input:focus {
     border:none;
     border-bottom: 1px solid #1DB954;
+}
 
+#logo {
+    color: #cccccc;
+    float: right;margin: 0 20px 0 -20px;
 }
 
 #action-search, #action-add-list, .action-delete-list, .action-add-song, .action-delete-song{
@@ -139,7 +143,7 @@ li {
 
 
 #topspace {
-    margin-bottom: 100px;
+    padding-top: 100px;
 }
 
 h2 {
@@ -158,6 +162,14 @@ h2 {
     text-align: justify;
     margin-bottom: 20px;
     position: relative;
+}
+
+#resultsDiv {
+    display:none;
+}
+
+#recomendacionesDiv {
+    display:block;
 }
 
 .resultsRow:after {
