@@ -15,7 +15,7 @@ var songStruct = {
   artista: '',
   album: ''
 };
-var songNumber = localStorage.length - 2;
+var songNumber = localStorage.length;
 var boolean = 1;
 
 var recomendations = {
@@ -46,6 +46,7 @@ var recomendations = {
         }
     }
 }
+
 var data = {
     save: function save(newSong){
         boolean = 1;
