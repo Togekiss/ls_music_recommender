@@ -1,6 +1,4 @@
-/**
- * Created by Hector on 30/12/2016.
- */
+
 var country = "es";
 var limit_results = 10;
 var song;

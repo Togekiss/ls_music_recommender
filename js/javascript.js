@@ -163,10 +163,12 @@
 
 			if ((event.target.id == "descubre") && (underlined.id == "right")) {
 				underlined.setAttribute('id', "left");
+				document.getElementById("descubreContainer").style.display = "block";
 			}
 
 			if ((event.target.id == "listas") && (underlined.id == "left")) {
 					underlined.setAttribute('id', "right");
+					document.getElementById("descubreContainer").style.display = "none";
 			}
 		},
 
@@ -189,17 +191,22 @@
 		chargeFooter: function chargeFooter(event) {
 			event.preventDefault();
 
-			if (Listener.playClicked) {
-				clearInterval(slider);
-				clearInterval(sliderGreen);
-				Listener.playClicked = false;
-			}
-
     	//  var figure = event.target.parentNode.parentNode;
 			var figure = event.target.childNodes[3];
 			var playListId;
 
 			if (figure) {
+
+				document.getElementById('img9').style.display = "block";
+				document.getElementById('img10').style.display = "block";
+				document.getElementById('img9').parentNode.childNodes[1].style.display = "block";
+				document.getElementById('img10').parentNode.childNodes[1].style.display = "block";
+
+				if (Listener.playClicked) {
+					clearInterval(slider);
+					clearInterval(sliderGreen);
+					Listener.playClicked = false;
+				}
 
 				if (figure.id == "img1") {
 					playList = 1;
@@ -250,25 +257,37 @@
 		playListClick: function playListClick(event) {
 			event.preventDefault();
 
-			if (Listener.playClicked) {
-				clearInterval(slider);
-				clearInterval(sliderGreen);
-				Listener.playClicked = false;
-			}
-
 			var figure = event.target.childNodes[3];
 
-			//canviem imatge
-			var img = document.getElementsByClassName('playerImageContainer')[0];
-      img.childNodes[0].src = figure.childNodes[1].childNodes[0].src;
+			if (figure) {
+				if (Listener.playClicked) {
+					clearInterval(slider);
+					clearInterval(sliderGreen);
+					Listener.playClicked = false;
+				}
 
-			var info = document.getElementsByClassName('info')[0];
-			//canviem artista
-      info.childNodes[1].textContent = figure.childNodes[5].childNodes[1].textContent;
-      //canviem titol
-      info.childNodes[3].textContent = figure.childNodes[5].childNodes[3].textContent;
+				Listener.songPause("click");
 
-			audioObject = new Audio(itemsplayList[itemIndexPlayList[0]].preview_url);
+				//canviem imatge
+				var img = document.getElementsByClassName('playerImageContainer')[0];
+	      img.childNodes[0].src = figure.childNodes[1].childNodes[0].src;
+
+				var info = document.getElementsByClassName('info')[0];
+				//canviem artista
+	      info.childNodes[1].textContent = figure.childNodes[5].childNodes[1].textContent;
+	      //canviem titol
+	      info.childNodes[3].textContent = figure.childNodes[5].childNodes[3].textContent;
+
+				if (figure.id == "img9") {
+					audioObject = new Audio(itemsplayList[itemIndexPlayList[0]].preview_url);
+					idPlaying = itemIndexPlayList[0];
+				}
+				if (figure.id == "img10") {
+					audioObject = new Audio(itemsplayList[itemIndexPlayList[1]].preview_url);
+					idPlaying = itemIndexPlayList[1];
+				}
+				Listener.songPlay("click");
+			}
 		},
 
 		changeFooter : function changeFooter() {
@@ -485,28 +504,49 @@
 
 		addSong: function addSong(event) {
 
-			event.preventDefault();
+			//event.preventDefault();
 			var item;
+
+			document.getElementById('img9').style.display = "block";
+			document.getElementById('img10').style.display = "block";
+			document.getElementById('img9').parentNode.childNodes[1].style.display = "block";
+			document.getElementById('img10').parentNode.childNodes[1].style.display = "block";
 
 			if (event.target.parentNode.id == "add-img1") {
 				item = items.tracks.items[itemIndexResults[0]];
-				playList = 1;
+				if (playList == 0) playList = 1;
 			}
 			if (event.target.parentNode.id == "add-img2") {
 				item = items.tracks.items[itemIndexResults[1]];
-				playList = 1;
+				if (playList == 0) playList = 1;
 			}
 			if (event.target.parentNode.id == "add-img3") {
 				item = itemsRecommendation[itemIndexRecommendations[0]];
-				playList = 2;
+				if (playList == 0) playList = 2;
 			}
 			if (event.target.parentNode.id == "add-img4") {
 				item = itemsRecommendation[itemIndexRecommendations[1]];
-				playList = 2;
+				if (playList == 0) playList = 2;
 			}
 
 			MusicRecommender.addPlayListSong(item);
 			Application.replacePlayList();
+		},
+
+		removeList: function removeList(event) {
+			event.preventDefault();
+
+			document.getElementById('img9').style.display = "none";
+			document.getElementById('img9').parentNode.childNodes[1].style.display = "none";
+			document.getElementById('img10').style.display = "none";
+			document.getElementById('img10').parentNode.childNodes[1].style.display = "none";
+
+			itemsplayList = [];
+			maxPlayList = 0;
+			idPlaying = 0;
+			playList = 0;
+			Application.replacePlayList();
+			Listener.songPause("click");
 		},
 
 		removeSong: function removeSong(event) {
@@ -516,12 +556,6 @@
 
 			if (event.target.parentNode.id == "delete-img9") {
 				id = itemIndexPlayList[0];
-				/*if (Listener.playClicked) {
-					clearInterval(slider);
-					clearInterval(sliderGreen);
-					Listener.playClicked = false;
-				}
-				Listener.songPause("click");*/
 			}
 			else  id = itemIndexPlayList[1];
 			if (id < idPlaying) idPlaying--;
@@ -587,8 +621,8 @@
 			if (maxPlayList > 1) figure2.childNodes[5].childNodes[3].textContent = itemsplayList[itemIndexPlayList[1]].name;
 
 			//console.log(ul);
-			Listener.addListener(ul[2].childNodes[1], "click", Listener.playClicked, false);
-			Listener.addListener(ul[2].childNodes[3], "click", Listener.playClicked, false);
+			Listener.addListener(ul[2].childNodes[1], "click", Listener.playListClick, false);
+			Listener.addListener(ul[2].childNodes[3], "click", Listener.playListClick, false);
 		},
 
 		replaceRecommendations: function replaceRecommendations() {
@@ -631,6 +665,10 @@
 			var listnavButtons = document.getElementsByClassName('listNavButton');
 			var addButtons = document.getElementsByClassName('action-add-song');
 			var removeButtons = document.getElementsByClassName('action-delete-song');
+			document.getElementById('img9').style.display = "none";
+			document.getElementById('img9').parentNode.childNodes[1].style.display = "none";
+			document.getElementById('img10').style.display = "none";
+			document.getElementById('img10').parentNode.childNodes[1].style.display = "none";
 
 			Listener.addListener (resultsnavButtons[0], 'click', Listener.changeRow, false);
 			Listener.addListener (resultsnavButtons[1], 'click', Listener.changeRow, false);
@@ -645,6 +683,7 @@
 			Listener.addListener (addButtons[3], 'click', Listener.addSong, false);
 			Listener.addListener (removeButtons[0], 'click', Listener.removeSong, true);
 			Listener.addListener (removeButtons[1], 'click', Listener.removeSong, true);
+			Listener.addListener (document.getElementsByClassName('action-delete-list')[0], 'click', Listener.removeList, false);
 
 			if (songNumber == 0) MusicRecommender.chargePopular();
 			else MusicRecommender.chargeRecommendations();

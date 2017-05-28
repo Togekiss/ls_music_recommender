@@ -26,10 +26,12 @@ function handleTouchMove(evt) {
         if ( xDiff > 0 ) {
           if (underlined.id == "left") {
             underlined.setAttribute('id', "right");
-          }  
+            document.getElementById("descubreContainer").style.display = "none";
+          }
         } else {
           if (underlined.id == "right") {
             underlined.setAttribute('id', "left");
+            document.getElementById("descubreContainer").style.display = "block";
           }
         }
     }
